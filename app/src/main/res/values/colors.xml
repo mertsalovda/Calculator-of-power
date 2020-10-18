@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#111112</color>
+    <color name="colorPrimaryDark">#1a1a1a</color>
+    <color name="colorAccent">#5151df</color>
+
+    <color name="swatch_1">#0d0d0d</color>
+    <color name="swatch_2">#432814</color>
+    <color name="swatch_3">#505052</color>
+    <color name="swatch_4">#0b0c55</color>
+    <color name="swatch_5">#c62013</color>
+    <color name="swatch_6">#a4a9a8</color>
+    <color name="swatch_7">#edeaec</color>
+    <color name="swatch_8">#5c7a7e</color>
+
+    <color name="key_number">#1f2123</color>
+    <color name="key_operator">#444648</color>
 </resources>
