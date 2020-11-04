@@ -73,4 +73,10 @@
         <item name="backgroundTint">@color/key_operator</item>
         <item name="android:background">@drawable/ripple_bg</item>
     </style>
+
+    <style name="KeypadHighlightLongTextButton" parent="KeypadHighlightButton">
+        <item name="backgroundTint">@color/key_operator</item>
+        <item name="android:background">@drawable/ripple_bg</item>
+        <item name="android:textSize">@dimen/font_large_20</item>
+    </style>
 </resources>

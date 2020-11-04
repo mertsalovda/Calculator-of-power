@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="4"
+    android:rowCount="5">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRed"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Red"
+        app:layout_constraintBottom_toTopOf="@+id/btnSin"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeg"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeg"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Deg"
+        app:layout_constraintBottom_toTopOf="@+id/btnCos"
+        app:layout_constraintEnd_toStartOf="@+id/btnXFactorial"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnRed"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnXFactorial"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="X!"
+        app:layout_constraintBottom_toTopOf="@+id/btnTan"
+        app:layout_constraintEnd_toStartOf="@+id/btnXInY"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnDeg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnXInY"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="X^Y"
+        app:layout_constraintBottom_toTopOf="@+id/btnIn"
+        app:layout_constraintEnd_toStartOf="@+id/btnSqrt"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnXFactorial"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSqrt"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Sqrt"
+        app:layout_constraintBottom_toTopOf="@+id/btnE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnXInY"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSin"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Sin"
+        app:layout_constraintBottom_toTopOf="@+id/btnAns"
+        app:layout_constraintEnd_toStartOf="@+id/btnCos"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRed" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCos"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Cos"
+        app:layout_constraintBottom_toTopOf="@+id/btnExp"
+        app:layout_constraintEnd_toStartOf="@+id/btnTan"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSin"
+        app:layout_constraintTop_toBottomOf="@+id/btnDeg" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTan"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Tan"
+        app:layout_constraintBottom_toTopOf="@+id/btnLog"
+        app:layout_constraintEnd_toStartOf="@+id/btnIn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnCos"
+        app:layout_constraintTop_toBottomOf="@+id/btnXFactorial" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnIn"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="in"
+        app:layout_constraintBottom_toTopOf="@+id/btnLnv"
+        app:layout_constraintEnd_toStartOf="@+id/btnE"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnTan"
+        app:layout_constraintTop_toBottomOf="@+id/btnXInY" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnE"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="e"
+        app:layout_constraintBottom_toTopOf="@+id/btnPi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnIn"
+        app:layout_constraintTop_toBottomOf="@+id/btnSqrt" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAns"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Ans"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber7"
+        app:layout_constraintEnd_toStartOf="@+id/btnExp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSin" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnExp"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="EXP"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber8"
+        app:layout_constraintEnd_toStartOf="@+id/btnLog"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAns"
+        app:layout_constraintTop_toBottomOf="@+id/btnCos" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLog"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="log"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber9"
+        app:layout_constraintEnd_toStartOf="@+id/btnLnv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnExp"
+        app:layout_constraintTop_toBottomOf="@+id/btnTan" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLnv"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="lnv"
+        app:layout_constraintBottom_toTopOf="@+id/btnBktOpen"
+        app:layout_constraintEnd_toStartOf="@+id/btnPi"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnLog"
+        app:layout_constraintTop_toBottomOf="@+id/btnIn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPi"
+        style="@style/KeypadHighlightLongTextButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="Pi"
+        app:layout_constraintBottom_toTopOf="@+id/btnBktClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnLnv"
+        app:layout_constraintTop_toBottomOf="@+id/btnE" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBktOpen"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="("
+        app:layout_constraintBottom_toTopOf="@+id/btnDivision"
+        app:layout_constraintEnd_toStartOf="@+id/btnBktClose"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber9"
+        app:layout_constraintTop_toBottomOf="@+id/btnLnv" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBktClose"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text=")"
+        app:layout_constraintBottom_toTopOf="@+id/btnMinus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnBktOpen"
+        app:layout_constraintTop_toBottomOf="@+id/btnPi" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPercent"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="%"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEqually"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnVoice"
+        app:layout_constraintTop_toBottomOf="@+id/btnMultiply" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDivision"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="/"
+        app:layout_constraintBottom_toTopOf="@+id/btnMultiply"
+        app:layout_constraintEnd_toStartOf="@+id/btnMinus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber6"
+        app:layout_constraintTop_toBottomOf="@+id/btnBktOpen" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber7"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="7"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber4"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAns" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber8"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="8"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber5"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber7"
+        app:layout_constraintTop_toBottomOf="@+id/btnExp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber9"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="9"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber6"
+        app:layout_constraintEnd_toStartOf="@+id/btnBktOpen"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber8"
+        app:layout_constraintTop_toBottomOf="@+id/btnLog" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMultiply"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="*"
+        app:layout_constraintBottom_toTopOf="@+id/btnPercent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber3"
+        app:layout_constraintTop_toBottomOf="@+id/btnDivision" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber4"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:text="4"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber1"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber7" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber5"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="5"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber2"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber4"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber8" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber6"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="6"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber3"
+        app:layout_constraintEnd_toStartOf="@+id/btnDivision"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber5"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber9" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMinus"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="-"
+        app:layout_constraintBottom_toTopOf="@+id/btnPlus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnDivision"
+        app:layout_constraintTop_toBottomOf="@+id/btnBktClose" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber1"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/btnPoint"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber2"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber0"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber1"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber3"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="3"
+        app:layout_constraintBottom_toTopOf="@+id/btnVoice"
+        app:layout_constraintEnd_toStartOf="@+id/btnMultiply"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber2"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber6" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPlus"
+        style="@style/KeypadHighlightButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="+"
+        app:layout_constraintBottom_toTopOf="@+id/btnEqually"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnMultiply"
+        app:layout_constraintTop_toBottomOf="@+id/btnMinus" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPoint"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber0"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber0"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnVoice"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPoint"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVoice"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:clickable="false"
+        android:padding="0dp"
+        android:src="@drawable/ic_baseline_keyboard_voice_24"
+        android:text=""
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPercent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber0"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEqually"
+        style="@style/KeypadAccentButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="="
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPercent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlus" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
