@@ -12,7 +12,10 @@
     <color name="swatch_6">#a4a9a8</color>
     <color name="swatch_7">#edeaec</color>
     <color name="swatch_8">#5c7a7e</color>
+    <color name="swatch_9">#444648</color>
 
     <color name="key_number">#1f2123</color>
-    <color name="key_operator">#444648</color>
+    <color name="key_operator">@color/swatch_9</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color">@color/swatch_9</color>
 </resources>

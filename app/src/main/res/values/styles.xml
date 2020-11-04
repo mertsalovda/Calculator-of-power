@@ -79,4 +79,20 @@
         <item name="android:background">@drawable/ripple_bg</item>
         <item name="android:textSize">@dimen/font_large_20</item>
     </style>
+
+    <style name="SearchFieldLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textSize">@dimen/font_large_20</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:textColorHint">@color/swatch_7</item>
+        <item name="hintTextColor">@color/swatch_7</item>
+        <item name="boxStrokeColor">@color/swatch_7</item>
+        <item name="startIconDrawable">@drawable/ic_baseline_search_24</item>
+        <item name="startIconTint">@color/swatch_7</item>
+    </style>
+
+    <style name="SearchFieldEditText" parent="ExpressionTextInputEditText">
+        <item name="android:textSize">@dimen/font_large_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+    </style>
 </resources>
