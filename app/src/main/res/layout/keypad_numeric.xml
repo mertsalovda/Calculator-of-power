@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNumber7"
         style="@style/KeypadButton"
@@ -164,8 +167,8 @@
         android:layout_margin="0dp"
         android:padding="0dp"
         android:scaleType="center"
-        android:text=""
         android:src="@drawable/ic_backspace"
+        android:text=""
         app:iconGravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,4 +176,4 @@
         app:layout_constraintStart_toEndOf="@+id/btnNumber0"
         app:layout_constraintTop_toBottomOf="@+id/btnNumber3" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>
