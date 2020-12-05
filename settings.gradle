@@ -1,2 +1,6 @@
+include ':sources:main'
+include ':sources:core'
+include ':sources:core_impl'
+include ':sources:core_api'
 include ':app'
 rootProject.name = "Calculator of power"
