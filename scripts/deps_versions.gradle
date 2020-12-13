@@ -1,0 +1,26 @@
+ext {
+    retrofitVersion = '2.6.1'
+    daggerVersion = '2.28.3'
+    roomVersion = '2.2.5'
+    picassoVersion = '2.71828'
+    coroutinesVersion = '1.1.1'
+    materialVersion = '1.1.0-beta02'
+
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+
+    dagger = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    room = [
+            'room-runtime' : "androidx.room:room-runtime:$roomVersion",
+            'room-ktx' : "androidx.room:room-ktx:$roomVersion"
+    ]
+    roomCompiler = "androidx.room:room-compiler:$roomVersion"
+
+    coroutinesDependencies = [
+            'coroutines_core'   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
+            'coroutines_android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    ]
+
+    material = "com.google.android.material:material:$materialVersion"
+}
