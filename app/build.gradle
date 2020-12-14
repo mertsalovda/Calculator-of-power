@@ -83,4 +83,5 @@ dependencies {
 
     implementation project(':sources:core')
     implementation project(':sources:main')
+    implementation project(':sources:basic')
 }

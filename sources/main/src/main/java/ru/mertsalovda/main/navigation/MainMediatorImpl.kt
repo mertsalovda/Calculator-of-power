@@ -1,13 +1,14 @@
 package ru.mertsalovda.main.navigation
 
 import android.content.Context
-import android.widget.Toast
+import android.content.Intent
 import ru.mertsalovda.core_api.mediator.MainMediator
+import ru.mertsalovda.main.MainActivity
 import javax.inject.Inject
 
-class MainMediatorImpl @Inject constructor(): MainMediator {
+class MainMediatorImpl @Inject constructor() : MainMediator {
 
     override fun openMainScreen(context: Context) {
-        Toast.makeText(context, "Main Screen", Toast.LENGTH_SHORT).show()
+        context.startActivity(Intent(context, MainActivity::class.java))
     }
 }
