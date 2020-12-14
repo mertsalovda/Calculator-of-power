@@ -81,7 +81,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
 
+
+    implementation project(':sources:assets')
     implementation project(':sources:core')
-    implementation project(':sources:main')
-    implementation project(':sources:basic')
+    implementation project(':sources:feature-basic-calculator')
+    implementation project(':sources:feature-converter')
+    implementation project(':sources:feature-main-screen')
+    implementation project(':sources:feature-scientific-calculator')
 }

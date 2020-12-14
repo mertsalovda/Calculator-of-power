@@ -1,13 +1,3 @@
 <resources>
     <string name="app_name">Calculator of power</string>
-    <string name="description_backspace_text">backspace text</string>
-    <string name="search">Поиск</string>
-
-
-    <string-array name="currency">
-        <item>RUR</item>
-        <item>USD</item>
-        <item>INR</item>
-        <item>BAN</item>
-    </string-array>
 </resources>

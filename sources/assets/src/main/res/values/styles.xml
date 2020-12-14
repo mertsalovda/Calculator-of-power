@@ -1,0 +1,97 @@
+<resources>
+
+    <!--  TextView basic style -->
+    <style name="TextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/swatch_7</item>
+    </style>
+
+    <style name="ExpressionTextViewStyle" parent="TextViewStyle">
+        <item name="android:textSize">@dimen/font_large_40</item>
+        <item name="android:paddingStart">@dimen/spacing_normal_16</item>
+        <item name="android:textColor">@color/swatch_6</item>
+        <item name="android:gravity">start|center</item>
+    </style>
+
+    <!--  Button basic style -->
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/swatch_7</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <!--  EditText basic style -->
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColor">@color/swatch_7</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="android:textSize">@dimen/font_large_40</item>
+        <item name="endIconContentDescription">@string/description_backspace_text</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconTint">@color/swatch_6</item>
+        <item name="endIconDrawable">@drawable/ic_backspace</item>
+        <item name="paddingEnd">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="ExpressionTextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/swatch_7</item>
+        <item name="android:textSize">@dimen/font_large_40</item>
+        <item name="android:textCursorDrawable">@drawable/text_select_handler</item>
+        <item name="android:textSelectHandle">@drawable/ic_text_select_handler</item>
+        <item name="android:textSelectHandleLeft">@drawable/ic_text_select_handler</item>
+        <item name="android:textSelectHandleRight">@drawable/ic_text_select_handler</item>
+    </style>
+
+    <!--  Keyboard  -->
+    <style name="KeypadButton" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/font_large_30</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/swatch_7</item>
+        <item name="backgroundTint">@color/key_number</item>
+        <item name="android:background">@drawable/ripple_bg</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="KeypadAccentButton" parent="KeypadButton">
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="android:background">@drawable/ripple_bg</item>
+    </style>
+
+    <style name="KeypadHighlightButton" parent="KeypadButton">
+        <item name="backgroundTint">@color/key_operator</item>
+        <item name="android:background">@drawable/ripple_bg</item>
+    </style>
+
+    <style name="KeypadHighlightLongTextButton" parent="KeypadHighlightButton">
+        <item name="backgroundTint">@color/key_operator</item>
+        <item name="android:background">@drawable/ripple_bg</item>
+        <item name="android:textSize">@dimen/font_large_20</item>
+    </style>
+
+    <style name="SearchFieldLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textSize">@dimen/font_large_20</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:textColorHint">@color/swatch_7</item>
+        <item name="hintTextColor">@color/swatch_7</item>
+        <item name="boxStrokeColor">@color/swatch_7</item>
+        <item name="startIconDrawable">@drawable/ic_baseline_search_24</item>
+        <item name="startIconTint">@color/swatch_7</item>
+    </style>
+
+    <style name="SearchFieldEditText" parent="ExpressionTextInputEditText">
+        <item name="android:textSize">@dimen/font_large_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="ChoiceChipsStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:backgroundTint">@color/swatch_9</item>
+        <item name="android:textColor">@color/swatch_7</item>
+        <item name="chipStrokeColor">@color/swatch_6</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <style name="ChoiceChipsGroupStyle" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingHorizontal">@dimen/spacing_small_8</item>
+        <item name="singleLine">true</item>
+    </style>
+</resources>
