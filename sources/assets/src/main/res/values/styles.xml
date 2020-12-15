@@ -1,5 +1,23 @@
 <resources>
 
+
+
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
+        <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TabLayout" parent="">
+        <item name="colorPrimary">@color/swatch_6</item>
+        <item name="colorSurface">@color/colorPrimary</item>
+        <item name="colorOnSurface">@color/swatch_3</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+<!--        <item name="fontFamily">@font/rubik</item>-->
+<!--        <item name="android:fontFamily">@font/rubik</item>-->
+    </style>
+
     <!--  TextView basic style -->
     <style name="TextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/swatch_7</item>

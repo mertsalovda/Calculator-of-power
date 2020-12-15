@@ -10,5 +10,9 @@
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="android:buttonStyle">@style/ButtonStyle</item>
         <item name="textInputStyle">@style/EditTextStyle</item>
+
+        <item name="textAppearanceButton">@style/TextAppearance.App.Button</item>
+
+        <item name="tabStyle">@style/Widget.App.TabLayout</item>
     </style>
 </resources>
