@@ -5,4 +5,8 @@ interface MediatorsProvider {
     fun provideMainMediator(): MainMediator
 
     fun provideBasicMediator(): BasicMediator
+
+    fun provideScientificMediator(): ScientificMediator
+
+    fun provideConverterMediator(): ConverterMediator
 }

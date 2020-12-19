@@ -1,7 +1,5 @@
 <resources>
 
-
-
     <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
         <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
@@ -58,7 +56,7 @@
     </style>
 
     <!--  Keyboard  -->
-    <style name="KeypadButton" parent="Widget.MaterialComponents.TextView">
+    <style name="KeypadButton" parent="Widget.MaterialComponents.Button">
         <item name="android:textSize">@dimen/font_large_30</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/swatch_7</item>
