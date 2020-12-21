@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.mertsalovda.basic.databinding.FrBasicCalculatorBinding
 
-class BasicFragment : Fragment() {
+class BasicCalculatorFragment : Fragment() {
 
     private lateinit var binding: FrBasicCalculatorBinding
 
@@ -28,6 +28,6 @@ class BasicFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = BasicFragment()
+        fun newInstance() = BasicCalculatorFragment()
     }
 }

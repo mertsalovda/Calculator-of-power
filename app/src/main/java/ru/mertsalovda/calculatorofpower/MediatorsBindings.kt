@@ -4,13 +4,13 @@ import dagger.Binds
 import dagger.Module
 import dagger.Reusable
 import ro.mertsalovda.converter.navigation.ConverterMediatorImpl
-import ru.mertsalovda.basic.navigation.BasicMediatorImpl
-import ru.mertsalovda.core_api.mediator.BasicMediator
+import ru.mertsalovda.basic.navigation.BasicCalculatorMediatorImpl
+import ru.mertsalovda.core_api.mediator.BasicCalculatorMediator
 import ru.mertsalovda.core_api.mediator.ConverterMediator
 import ru.mertsalovda.core_api.mediator.MainMediator
-import ru.mertsalovda.core_api.mediator.ScientificMediator
+import ru.mertsalovda.core_api.mediator.ScientificCalculatorMediator
 import ru.mertsalovda.main.navigation.MainMediatorImpl
-import ru.mertsalovda.scientific.navigation.ScientificMediatorImpl
+import ru.mertsalovda.scientific.navigation.ScientificCalculatorMediatorImpl
 
 @Module
 interface MediatorsBindings {
@@ -21,11 +21,11 @@ interface MediatorsBindings {
 
     @Binds
     @Reusable
-    fun bindsBasicMediator(basicMediatorImpl: BasicMediatorImpl): BasicMediator
+    fun bindsBasicMediator(basicMediatorImpl: BasicCalculatorMediatorImpl): BasicCalculatorMediator
 
     @Binds
     @Reusable
-    fun bindsScientificMediator(scientificMediatorImpl: ScientificMediatorImpl): ScientificMediator
+    fun bindsScientificMediator(scientificMediatorImpl: ScientificCalculatorMediatorImpl): ScientificCalculatorMediator
 
     @Binds
     @Reusable
