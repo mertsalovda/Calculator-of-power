@@ -1,4 +1,4 @@
-package ro.mertsalovda.converter
+package ro.mertsalovda.converter.ui.converter
 
 import android.os.Bundle
 import android.text.InputType
@@ -7,10 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
 import ro.mertsalovda.converter.databinding.KeypadNumericBinding
 
 class ConverterFragment : Fragment() {
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = ConverterFragment()
+    }
+
+    private lateinit var viewModel: ConverterViewModel
 
     lateinit var binding: FrConverterBinding
     lateinit var keypad: KeypadNumericBinding
@@ -29,16 +38,13 @@ class ConverterFragment : Fragment() {
         binding.etUnit1.inputType = InputType.TYPE_NULL
         binding.etUnit2.inputType = InputType.TYPE_NULL
 
-        keypad.btnBackspace.setOnClickListener{
-            var text = binding.etUnit1.text.toString()
-            val end = if (text.isNullOrEmpty()) 0 else text.length - 1
-            text = text.substring(0, end)
-            (binding.etUnit1 as TextView).text = text
+        binding.currencySelectBtn1.setOnClickListener {
+            viewModel.showCurrencyList(R.id.container, childFragmentManager)
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = ConverterFragment()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ConverterViewModel::class.java)
     }
 }

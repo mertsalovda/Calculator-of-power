@@ -17,21 +17,48 @@
         android:padding="@dimen/spacing_small_8"
         app:layout_constraintBottom_toTopOf="@+id/unitContainer2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Spinner
-            android:id="@+id/unitSpinner1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iconUnit1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="@dimen/spacing_tiny_4"
-            android:entries="@array/currency"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:spinnerMode="dropdown"
-            android:textAlignment="viewEnd"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/view1"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="@+id/titleUnit1"
+            app:layout_constraintEnd_toStartOf="@+id/titleUnit1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/titleUnit1" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleUnit1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/spacing_tiny_4"
+            android:layout_marginEnd="@dimen/spacing_tiny_4"
+            android:text="USD"
+            app:layout_constraintBottom_toBottomOf="@+id/currencySelectBtn1"
+            app:layout_constraintEnd_toStartOf="@+id/currencySelectBtn1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iconUnit1"
+            app:layout_constraintTop_toTopOf="@+id/currencySelectBtn1" />
+
+        <ImageButton
+            android:id="@+id/currencySelectBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny_4"
+            android:background="@drawable/ripple_bg_transparent"
+            android:src="@drawable/ic_baseline_arrow_drop_down_24"
+            app:layout_constraintBottom_toBottomOf="@+id/etUnit1"
+            app:layout_constraintEnd_toStartOf="@+id/etUnit1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/titleUnit1"
+            app:layout_constraintTop_toTopOf="@+id/etUnit1"
+            app:tint="@color/white" />
 
         <View
             android:id="@+id/view1"
@@ -83,19 +110,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Spinner
-            android:id="@+id/unitSpinner2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iconUnit2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="@dimen/spacing_tiny_4"
-            android:entries="@array/currency"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:spinnerMode="dropdown"
-            android:textAlignment="viewEnd"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/view2"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="@+id/titleUnit2"
+            app:layout_constraintEnd_toStartOf="@+id/titleUnit2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/titleUnit2" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleUnit2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/spacing_tiny_4"
+            android:layout_marginEnd="@dimen/spacing_tiny_4"
+            android:text="RUR"
+            app:layout_constraintBottom_toBottomOf="@+id/currencySelectBtn2"
+            app:layout_constraintEnd_toStartOf="@+id/currencySelectBtn2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iconUnit2"
+            app:layout_constraintTop_toTopOf="@+id/currencySelectBtn2" />
+
+        <ImageButton
+            android:id="@+id/currencySelectBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny_4"
+            android:background="@drawable/ripple_bg_transparent"
+            android:src="@drawable/ic_baseline_arrow_drop_down_24"
+            app:layout_constraintBottom_toBottomOf="@+id/etUnit2"
+            app:layout_constraintEnd_toStartOf="@+id/etUnit2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/titleUnit2"
+            app:layout_constraintTop_toTopOf="@+id/etUnit2"
+            app:tint="@color/white" />
 
         <View
             android:id="@+id/view2"
@@ -149,27 +202,39 @@
             android:id="@+id/groupConverterUnit"
             style="@style/ChoiceChipsGroupStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacing_small_8"
+            android:paddingEnd="@dimen/spacing_small_8">
 
-            <include layout="@layout/item_converter_category" />
+            <com.google.android.material.chip.Chip
+                style="@style/ChoiceChipsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currency" />
 
-            <include layout="@layout/item_converter_category" />
+            <com.google.android.material.chip.Chip
+                style="@style/ChoiceChipsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/length" />
 
-            <include layout="@layout/item_converter_category" />
+            <com.google.android.material.chip.Chip
+                style="@style/ChoiceChipsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight" />
 
-            <include layout="@layout/item_converter_category" />
+            <com.google.android.material.chip.Chip
+                style="@style/ChoiceChipsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/speed" />
 
-            <include layout="@layout/item_converter_category" />
-
-            <include layout="@layout/item_converter_category" />
-
-            <include layout="@layout/item_converter_category" />
-
-            <include layout="@layout/item_converter_category" />
-
-            <include layout="@layout/item_converter_category" />
-
-            <include layout="@layout/item_converter_category" />
+            <com.google.android.material.chip.Chip
+                style="@style/ChoiceChipsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/area" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -181,7 +246,7 @@
         android:layout_height="1dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.40"
+        app:layout_constraintGuide_percent="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

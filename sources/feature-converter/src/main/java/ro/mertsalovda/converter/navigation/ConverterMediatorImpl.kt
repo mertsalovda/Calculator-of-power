@@ -1,7 +1,7 @@
 package ro.mertsalovda.converter.navigation
 
 import androidx.fragment.app.FragmentManager
-import ro.mertsalovda.converter.ConverterFragment
+import ro.mertsalovda.converter.ui.converter.ConverterFragment
 import ru.mertsalovda.core_api.mediator.ConverterMediator
 import javax.inject.Inject
 
