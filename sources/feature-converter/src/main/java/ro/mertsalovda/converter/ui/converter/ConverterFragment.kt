@@ -39,7 +39,7 @@ class ConverterFragment : Fragment() {
         binding.etUnit2.inputType = InputType.TYPE_NULL
 
         binding.currencySelectBtn1.setOnClickListener {
-            viewModel.showCurrencyList(R.id.container, childFragmentManager)
+            viewModel.showCurrencyList(childFragmentManager)
         }
     }
 
