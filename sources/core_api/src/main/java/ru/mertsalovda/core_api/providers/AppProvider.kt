@@ -1,4 +1,4 @@
-package ru.mertsalovda.core_api.mediator
+package ru.mertsalovda.core_api.providers
 
 import android.content.Context
 

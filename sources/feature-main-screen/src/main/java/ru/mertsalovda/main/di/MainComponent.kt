@@ -1,8 +1,7 @@
 package ru.mertsalovda.main.di
 
 import dagger.Component
-import ru.mertsalovda.core_api.mediator.ProvidersFacade
-import ru.mertsalovda.main.ui.MainActivity
+import ru.mertsalovda.core_api.providers.ProvidersFacade
 import ru.mertsalovda.main.ui.PageFragment
 
 @Component(

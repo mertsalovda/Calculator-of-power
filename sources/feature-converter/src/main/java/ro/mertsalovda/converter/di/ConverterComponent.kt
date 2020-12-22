@@ -3,7 +3,6 @@ package ro.mertsalovda.converter.di
 import dagger.Component
 import ro.mertsalovda.converter.ConverterFlowFragment
 import ro.mertsalovda.converter.ui.converter.ConverterViewModel
-import ru.mertsalovda.core_api.mediator.ProvidersFacade
 
 @Component(
     modules = [ConverterModule::class]

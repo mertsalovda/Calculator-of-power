@@ -2,7 +2,7 @@ package ru.mertsalovda.basic.di
 
 import dagger.Component
 import ru.mertsalovda.basic.BasicCalculatorFragment
-import ru.mertsalovda.core_api.mediator.ProvidersFacade
+import ru.mertsalovda.core_api.providers.ProvidersFacade
 
 @Component(
     dependencies = [ProvidersFacade::class]
