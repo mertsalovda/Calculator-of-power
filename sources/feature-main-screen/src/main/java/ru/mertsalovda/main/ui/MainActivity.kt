@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), IScreenWithTabLayout {
         tabLayout = findViewById(R.id.tabLayout)
 
         viewPager.adapter = ViewPagerAdapter(this)
+        viewPager.offscreenPageLimit = 2
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = Page.values()[position].title()
         }.attach()
