@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import ro.mertsalovda.converter.ConverterFlowFragment
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
 import ro.mertsalovda.converter.databinding.KeypadNumericBinding
@@ -38,7 +39,7 @@ class ConverterFragment : Fragment() {
         binding.etUnit2.inputType = InputType.TYPE_NULL
 
         binding.currencySelectBtn1.setOnClickListener {
-            viewModel.showCurrencyList(0, childFragmentManager) // TODO добавить id контейнера
+            viewModel.showCurrencyList(ConverterFlowFragment.CONTAINER_ID, parentFragmentManager)
         }
     }
 

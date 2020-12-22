@@ -29,9 +29,11 @@ class MainActivity : AppCompatActivity(), IScreenWithTabLayout {
 
     override fun hideTabLayout() {
         tabLayout.visibility = View.GONE
+        viewPager.isUserInputEnabled = false
     }
 
     override fun showTabLayout() {
         tabLayout.visibility = View.VISIBLE
+        viewPager.isUserInputEnabled = true
     }
 }
