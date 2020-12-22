@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.mertsalovda.main.MainActivity">
+    tools:context="ru.mertsalovda.main.ui.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -13,30 +13,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabMode="fixed">
+        app:tabMode="fixed"/>
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabConverter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/converter" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabBasic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/basic" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabScientific"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/scientific" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <FrameLayout
-        android:id="@+id/container"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

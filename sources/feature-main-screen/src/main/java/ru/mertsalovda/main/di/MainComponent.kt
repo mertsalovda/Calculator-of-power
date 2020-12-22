@@ -2,7 +2,8 @@ package ru.mertsalovda.main.di
 
 import dagger.Component
 import ru.mertsalovda.core_api.mediator.ProvidersFacade
-import ru.mertsalovda.main.MainActivity
+import ru.mertsalovda.main.ui.MainActivity
+import ru.mertsalovda.main.ui.PageFragment
 
 @Component(
     dependencies = [ProvidersFacade::class]
@@ -15,5 +16,5 @@ interface MainComponent {
         }
     }
 
-    fun inject(mainActivity: MainActivity)
+    fun inject(pageFragment: PageFragment)
 }

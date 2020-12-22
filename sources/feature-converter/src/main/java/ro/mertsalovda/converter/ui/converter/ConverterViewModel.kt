@@ -1,5 +1,6 @@
 package ro.mertsalovda.converter.ui.converter
 
+import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +24,7 @@ class ConverterViewModel : ViewModel() {
         ConverterComponent.create().inject(this)
     }
 
-    fun showCurrencyList(childFragmentManager: FragmentManager) {
-        viewRouter.showCurrencyList(childFragmentManager)
+    fun showCurrencyList(@IdRes containerId: Int, childFragmentManager: FragmentManager) {
+        viewRouter.showCurrencyList(containerId, childFragmentManager)
     }
 }
