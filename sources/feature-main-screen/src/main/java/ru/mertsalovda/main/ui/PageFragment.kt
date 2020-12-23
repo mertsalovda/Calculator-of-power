@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.mertsalovda.core_api.mediator.AppWithFacade
+import ru.mertsalovda.core_api.providers.AppWithFacade
 import ru.mertsalovda.core_api.mediator.BasicCalculatorMediator
 import ru.mertsalovda.core_api.mediator.ConverterMediator
 import ru.mertsalovda.core_api.mediator.ScientificCalculatorMediator

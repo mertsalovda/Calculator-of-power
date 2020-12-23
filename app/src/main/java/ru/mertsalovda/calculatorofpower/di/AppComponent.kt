@@ -1,4 +1,4 @@
-package ru.mertsalovda.calculatorofpower
+package ru.mertsalovda.calculatorofpower.di
 
 import android.app.Application
 import android.content.Context
@@ -23,8 +23,7 @@ interface AppComponent : AppProvider {
          * @return возвращает [AppProvider]
          */
         fun create(application: Application): AppProvider {
-            return appComponent ?: DaggerAppComponent
-                .builder()
+            return appComponent ?: DaggerAppComponent.builder()
                 .application(application.applicationContext)
                 .build().also {
                     appComponent = it

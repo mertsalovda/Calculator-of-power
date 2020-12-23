@@ -1,7 +1,8 @@
 package ru.mertsalovda.calculatorofpower
 
 import android.app.Application
-import ru.mertsalovda.core_api.mediator.AppWithFacade
+import ru.mertsalovda.calculatorofpower.di.FacadeComponent
+import ru.mertsalovda.core_api.providers.AppWithFacade
 import ru.mertsalovda.core_api.providers.ProvidersFacade
 
 class App : Application(), AppWithFacade {

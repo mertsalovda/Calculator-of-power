@@ -1,4 +1,4 @@
-package ru.mertsalovda.calculatorofpower
+package ru.mertsalovda.calculatorofpower.di
 
 import dagger.Binds
 import dagger.Module

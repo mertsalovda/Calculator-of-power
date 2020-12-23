@@ -1,4 +1,4 @@
-package ru.mertsalovda.core_impl
+package ru.mertsalovda.core_impl.database
 
 import android.content.Context
 import androidx.room.Room
