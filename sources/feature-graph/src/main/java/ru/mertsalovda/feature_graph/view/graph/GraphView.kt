@@ -1,8 +1,10 @@
 package ru.mertsalovda.feature_graph.view.graph
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.graphics.toRectF
@@ -33,6 +35,8 @@ class GraphView @JvmOverloads constructor(
     private var gridStep: Int = 0
     private var deltaX: Float = 0f
     private var deltaY: Float = 0f
+    private var dX = 0f
+    private var dY = 0f
 
     private val textRect = Rect()
 
@@ -179,6 +183,25 @@ class GraphView @JvmOverloads constructor(
         canvas.drawPath(path, graphPaint)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                dX = event.x
+                dY = event.y
+            }
+            MotionEvent.ACTION_MOVE -> {
+                deltaX = event.x - dX
+                deltaY = event.y - dY
+                invalidate()
+            }
+            MotionEvent.ACTION_UP -> {
+            }
+            else -> return false
+        }
+        return true
+    }
+
     /**
      * Установить масштаб графика в диапазоне от 0 до 1, где 1 = 100%, 0,5 = 50% и т.д.
      * Изменение масштаба вызывает перерисовку.
@@ -229,6 +252,16 @@ class GraphView @JvmOverloads constructor(
         invalidate()
     }
 
-    private fun Float.toY(): Float = (this * -1f) + measuredHeight / 2f + deltaX
-    private fun Float.toX(): Float = this + measuredWidth / 2f + deltaY
+    /**
+     * Установить размер текста подписи осей.
+     * Вызывает перерисовку.
+     * @param size размер текста.
+     */
+    fun setTextSize(size: Float) {
+        textPaint.textSize = size
+        invalidate()
+    }
+
+    private fun Float.toY(): Float = (this * -1f) + measuredHeight / 2f + deltaY
+    private fun Float.toX(): Float = this + measuredWidth / 2f + deltaX
 }
