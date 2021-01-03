@@ -1,9 +1,6 @@
 package ru.mertsalovda.core_api.providers
 
-import ru.mertsalovda.core_api.mediator.BasicCalculatorMediator
-import ru.mertsalovda.core_api.mediator.ConverterMediator
-import ru.mertsalovda.core_api.mediator.MainMediator
-import ru.mertsalovda.core_api.mediator.ScientificCalculatorMediator
+import ru.mertsalovda.core_api.mediator.*
 
 interface MediatorsProvider {
 
@@ -14,4 +11,6 @@ interface MediatorsProvider {
     fun provideScientificMediator(): ScientificCalculatorMediator
 
     fun provideConverterMediator(): ConverterMediator
+
+    fun provideGraphMediator(): GraphMediator
 }

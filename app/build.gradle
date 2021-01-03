@@ -77,5 +77,6 @@ dependencies {
     implementation project(':sources:feature-basic-calculator')
     implementation project(':sources:feature-converter')
     implementation project(':sources:feature-main-screen')
+    implementation project(':sources:feature-graph')
     implementation project(':sources:feature-scientific-calculator')
 }

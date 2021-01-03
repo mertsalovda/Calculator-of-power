@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import ru.mertsalovda.core_api.providers.AppWithFacade
 import ru.mertsalovda.core_api.mediator.BasicCalculatorMediator
 import ru.mertsalovda.core_api.mediator.ConverterMediator
+import ru.mertsalovda.core_api.mediator.GraphMediator
 import ru.mertsalovda.core_api.mediator.ScientificCalculatorMediator
 import ru.mertsalovda.main.R
 import ru.mertsalovda.main.di.MainComponent
@@ -26,6 +27,8 @@ class PageFragment : Fragment() {
 
     @Inject
     lateinit var converterMediator: ConverterMediator
+    @Inject
+    lateinit var graphMediator: GraphMediator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +47,7 @@ class PageFragment : Fragment() {
             Page.CONVERTER -> converterMediator.openConverterScreen(R.id.pageContainer, childFragmentManager)
             Page.BASIC_CALCULATOR -> basicCalculatorMediator.openBasicScreen(R.id.pageContainer, childFragmentManager)
             Page.SCIENTIFIC_CALCULATOR -> scientificCalculatorMediator.openScientificScreen(R.id.pageContainer, childFragmentManager)
+            Page.GRAPH -> graphMediator.openGraphScreen(R.id.pageContainer, childFragmentManager)
         }
     }
 

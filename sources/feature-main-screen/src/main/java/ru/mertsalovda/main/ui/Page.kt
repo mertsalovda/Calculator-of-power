@@ -13,6 +13,9 @@ enum class Page {
     },
     SCIENTIFIC_CALCULATOR {
         override fun title(): String = "Scientific"
+    },
+    GRAPH {
+        override fun title(): String = "Graph"
     };
 
     abstract fun title(): String
