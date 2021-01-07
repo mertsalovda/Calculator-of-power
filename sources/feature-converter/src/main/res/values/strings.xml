@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Валюта</string>
+    <string name="length">Длина</string>
+    <string name="speed">Скорость</string>
+    <string name="weight">Масса</string>
+    <string name="area">Площадь</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
