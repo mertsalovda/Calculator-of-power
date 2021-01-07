@@ -7,6 +7,7 @@
     tools:context=".GraphFragment">
 
     <ru.mertsalovda.feature_graph.view.graph.GraphView
+        android:id="@+id/graphView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/guideline1"
@@ -20,9 +21,33 @@
         android:layout_height="1dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.50"
+        app:layout_constraintGuide_percent="0.60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/zoomIn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/spacing_normal_16"
+        android:background="@drawable/ripple_oval_bg"
+        android:src="@drawable/ic_baseline_zoom_in_24"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/zoomOut"
+        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+
+    <ImageButton
+        android:id="@+id/zoomOut"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/spacing_normal_16"
+        android:background="@drawable/ripple_oval_bg"
+        android:src="@drawable/ic_baseline_zoom_out_24"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
