@@ -2,7 +2,7 @@ package ru.mertsalovda.feature_graph.navigaton
 
 import androidx.fragment.app.FragmentManager
 import ru.mertsalovda.core_api.mediator.GraphMediator
-import ru.mertsalovda.feature_graph.GraphFragment
+import ru.mertsalovda.feature_graph.view.GraphFragment
 import javax.inject.Inject
 
 class GraphMediatorImpl @Inject constructor() : GraphMediator {

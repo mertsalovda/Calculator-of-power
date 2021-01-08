@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GraphFragment">
+    tools:context=".view.GraphFragment">
 
     <ru.mertsalovda.feature_graph.view.graph.GraphView
         android:id="@+id/graphView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:axisColor="@color/swatch_6"
+        app:gridColor="@color/swatch_3"
         app:layout_constraintBottom_toBottomOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:textColor="@color/swatch_6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -25,12 +28,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/graphList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/spacing_normal_16"
+        android:layout_marginTop="@dimen/font_large_30"
+        android:layout_marginEnd="@dimen/spacing_normal_16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1"
+        tools:listitem="@layout/item_graph" />
+
+
     <ImageButton
         android:id="@+id/zoomIn"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/spacing_normal_16"
         android:background="@drawable/ripple_oval_bg"
+        android:contentDescription="@string/zoom_in"
         android:src="@drawable/ic_baseline_zoom_in_24"
         android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/guideline1"
@@ -43,11 +62,11 @@
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/spacing_normal_16"
         android:background="@drawable/ripple_oval_bg"
+        android:contentDescription="@string/zoom_out"
         android:src="@drawable/ic_baseline_zoom_out_24"
         android:tint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline1" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

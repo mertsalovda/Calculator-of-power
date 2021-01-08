@@ -45,6 +45,8 @@ dependencies {
     implementation coreKtx
     implementation appcompat
 
+    implementation material
+
     // Dagger 2
     implementation dagger
     kapt daggerCompiler

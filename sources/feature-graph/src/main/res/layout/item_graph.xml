@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_tiny_4"
+    android:layout_marginBottom="@dimen/spacing_tiny_4"
+    android:background="@color/swatch_1"
+    android:elevation="4dp"
+    app:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/swatch_10">
+
+        <View
+            android:id="@+id/colorMarker"
+            android:layout_width="@dimen/spacing_small_8"
+            android:layout_height="0dp"
+            android:background="@android:color/holo_red_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/expressionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_small_8"
+            android:layout_marginEnd="@dimen/spacing_small_8"
+            android:text="f(x) = x^2"
+            android:textColor="@color/swatch_6"
+            android:textSize="@dimen/font_large_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/visibilityBtn"
+            app:layout_constraintStart_toEndOf="@+id/colorMarker"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="@dimen/icon_size_48"
+            android:layout_height="@dimen/icon_size_48"
+            android:layout_marginEnd="@dimen/spacing_small_8"
+            android:background="@drawable/ripple_bg_transparent"
+            android:src="@drawable/ic_baseline_delete_outline_24"
+            android:tint="@color/swatch_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/visibilityBtn"
+            android:layout_width="@dimen/icon_size_48"
+            android:layout_height="@dimen/icon_size_48"
+            android:layout_marginEnd="@dimen/spacing_small_8"
+            android:background="@drawable/ripple_bg_transparent"
+            android:src="@drawable/ic_baseline_visibility_24"
+            android:tint="@color/swatch_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
