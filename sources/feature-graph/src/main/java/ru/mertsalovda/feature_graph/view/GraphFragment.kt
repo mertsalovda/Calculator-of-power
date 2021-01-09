@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.mertsalovda.feature_graph.R
-import ru.mertsalovda.feature_graph.databinding.FrGraficBinding
+import ru.mertsalovda.feature_graph.databinding.FrGraphBinding
 
 class GraphFragment : Fragment() {
 
@@ -17,7 +17,7 @@ class GraphFragment : Fragment() {
         fun newInstance() = GraphFragment()
     }
 
-    private var _binding: FrGraficBinding? = null
+    private var _binding: FrGraphBinding? = null
 
     private val binding get() = _binding!!
 
@@ -28,8 +28,8 @@ class GraphFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fr_grafic, container, false)
-        _binding = FrGraficBinding.bind(view)
+        val view = inflater.inflate(R.layout.fr_graph, container, false)
+        _binding = FrGraphBinding.bind(view)
         return binding.root
     }
 
@@ -40,6 +40,13 @@ class GraphFragment : Fragment() {
             },
             clickDelete = {
                 viewModel.deleteGraph(it)
+            },
+            clickListener = {
+                viewModel.drawGraph(it)
+            },
+            clickVisibility = {
+                viewModel.drawAllGraph()
+                viewModel.drawGraph(it)
             }
         )
         binding.graphList.adapter = adapter
@@ -49,10 +56,27 @@ class GraphFragment : Fragment() {
         initListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.drawAllGraph()
+    }
+
     private fun initObservers() {
-        viewModel.graph.observe(viewLifecycleOwner, Observer {
+        viewModel.graphItems.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 adapter.setData(it, true)
+            }
+        })
+
+        viewModel.graphs.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                binding.graphView.addGraphList(it, true)
+            }
+        })
+
+        viewModel.graph.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                binding.graphView.addGraph(it)
             }
         })
     }

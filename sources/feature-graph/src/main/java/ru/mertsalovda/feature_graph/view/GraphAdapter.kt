@@ -1,10 +1,9 @@
 package ru.mertsalovda.feature_graph.view
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ru.mertsalovda.feature_graph.R
 import ru.mertsalovda.feature_graph.databinding.ItemAddGraphBinding
@@ -124,9 +123,9 @@ class GraphAdapter(
         private fun setVisibilityIndicator(graphItem: GraphItem) {
             val context = itemView.context
             val image = if (graphItem.isVisible) {
-                context.getDrawable(R.drawable.ic_baseline_visibility_24)
+                ContextCompat.getDrawable(context, R.drawable.ic_baseline_visibility_24)
             } else {
-                context.getDrawable(R.drawable.ic_baseline_visibility_off_24)
+                ContextCompat.getDrawable(context, R.drawable.ic_baseline_visibility_off_24)
             }
             binding.visibilityBtn.setImageDrawable(image)
         }

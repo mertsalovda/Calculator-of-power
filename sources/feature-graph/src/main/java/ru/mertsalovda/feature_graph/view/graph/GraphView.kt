@@ -1,5 +1,8 @@
 package ru.mertsalovda.feature_graph.view.graph
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
@@ -28,6 +31,8 @@ class GraphView @JvmOverloads constructor(
 
         const val DEFAULT_TEXT_SIZE = 130f
         const val DEFAULT_TEXT_COLOR = Color.BLUE
+
+        const val DURATION = 1000L
     }
 
     /** Масштаб графика */
@@ -42,17 +47,24 @@ class GraphView @JvmOverloads constructor(
 
     private val textRect = Rect()
 
+    private val graphAnimator: ValueAnimator
+    private var isAnimation = false
+    private var xIndex = 0
+
     @ColorInt
     private var textColor: Int = DEFAULT_TEXT_COLOR
+
     @ColorInt
     private var gridColor: Int = DEFAULT_GRID_COLOR
+
     @ColorInt
     private var axisColor: Int = DEFAULT_AXIS_COLOR
     private var graphWidth: Float = DEFAULT_GRAPH_WIDTH
     private var axisWidth: Float = DEFAULT_AXIS_WIDTH
     private var textSize: Float = DEFAULT_TEXT_SIZE
 
-    private var colorGraphList = listOf(Color.BLUE, Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.RED)
+    private var colorGraphList =
+        listOf(Color.BLUE, Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.RED)
 
     private var graphs = mutableListOf<Graph>()
 
@@ -72,6 +84,25 @@ class GraphView @JvmOverloads constructor(
 
             graphWidth = ta.getFloat(R.styleable.GraphView_graphWidth, DEFAULT_GRAPH_WIDTH)
             ta.recycle()
+        }
+        graphAnimator = ValueAnimator().apply {
+            duration = DURATION
+            addUpdateListener {
+                val value = it.animatedValue as Int
+                xIndex = value
+                invalidate()
+            }
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator?, isReverse: Boolean) {
+                    isAnimation = true
+                    super.onAnimationStart(animation, isReverse)
+                }
+
+                override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                    isAnimation = false
+                    super.onAnimationEnd(animation, isReverse)
+                }
+            })
         }
     }
 
@@ -113,7 +144,11 @@ class GraphView @JvmOverloads constructor(
         drawGrid(canvas)
         drawAxis(canvas)
         drawText(canvas)
-        drawGraph(canvas)
+        if (isAnimation) {
+            drawGraphAnimated(canvas)
+        } else {
+            drawGraph(canvas)
+        }
     }
 
     /** Подписать шкалы x, y */
@@ -152,7 +187,7 @@ class GraphView @JvmOverloads constructor(
     /** Нарисовать сетку */
     private fun drawGrid(canvas: Canvas) {
         val maxSide = max(measuredWidth, measuredHeight)
-        gridStep = (maxSide * scale  / 2f).toInt()
+        gridStep = (maxSide * scale / 2f).toInt()
         val gridCount = (maxSide / gridStep) * 10
 
         for (x in -gridCount..gridCount) {
@@ -198,18 +233,57 @@ class GraphView @JvmOverloads constructor(
     /** Нарисовать график */
     private fun drawGraph(canvas: Canvas) {
         if (graphs.isEmpty()) return
-        graphs.sortBy { it.isSelected }
         for (graph in graphs) {
             if (graph.points.isEmpty()) return
             val path = Path()
-            path.moveTo((graph.points[0].x * gridStep).toX(), (graph.points[0].y * gridStep).toY())
-            for (xy in graph.points) {
-                val x = xy.x * gridStep
-                val y = xy.y * gridStep
-                path.lineTo(x.toX(), y.toY())
+            path.moveTo(
+                (graph.points[0]!!.x * gridStep).toX(),
+                (graph.points[0]!!.y * gridStep).toY()
+            )
+            for ((index, xy) in graph.points.withIndex()) {
+                if (xy == null && graph.points[index + 1] != null) {
+                    val x = graph.points[index + 1]!!.x * gridStep
+                    val y = graph.points[index + 1]!!.y * gridStep
+                    path.moveTo(x.toX(), y.toY())
+                    continue
+                } else if (xy == null && graph.points[index + 1] == null) {
+                    continue
+                } else {
+                    val x = xy!!.x * gridStep
+                    val y = xy.y * gridStep
+                    path.lineTo(x.toX(), y.toY())
+                }
             }
             canvas.drawPath(path, graphPaint.apply { color = graph.color })
         }
+    }
+
+    /** Нарисовать график */
+    private fun drawGraphAnimated(canvas: Canvas) {
+        if (graphs.isEmpty()) return
+        val graph = graphs.last()
+        if (graph.points.isEmpty()) return
+        val path = Path()
+        path.moveTo(
+            (graph.points[0]!!.x * gridStep).toX(),
+            (graph.points[0]!!.y * gridStep).toY()
+        )
+        for ((index, xy) in graph.points.withIndex()) {
+            if (index >= xIndex) break
+            if (xy == null && graph.points[index + 1] != null) {
+                val x = graph.points[index + 1]!!.x * gridStep
+                val y = graph.points[index + 1]!!.y * gridStep
+                path.moveTo(x.toX(), y.toY())
+                continue
+            } else if (xy == null && graph.points[index + 1] == null) {
+                continue
+            } else {
+                val x = xy!!.x * gridStep
+                val y = xy.y * gridStep
+                path.lineTo(x.toX(), y.toY())
+            }
+        }
+        canvas.drawPath(path, graphPaint.apply { color = graph.color })
     }
 
     /** Получить случайный цвет из перечня цветов */
@@ -304,7 +378,7 @@ class GraphView @JvmOverloads constructor(
      * @param list - список графиков
      * @param toClear - очистить перед добавлением
      */
-    fun addGraphList(list: MutableList<Graph>, toClear: Boolean = false) {
+    fun addGraphList(list: List<Graph>, toClear: Boolean = false) {
         if (toClear) {
             graphs.clear()
         }
@@ -319,7 +393,8 @@ class GraphView @JvmOverloads constructor(
      */
     fun addGraph(graph: Graph) {
         graphs.add(graph)
-        invalidate()
+        graphAnimator.setIntValues(graph.points.size - 1)
+        graphAnimator.start()
     }
 
     /**

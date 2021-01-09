@@ -6,9 +6,7 @@ import kotlin.random.Random
 class GraphItem(
     var markerColor: Int = Color.YELLOW,
     var expression: String = "expression",
-    var isVisible: Boolean = true,
-    var isSelected: Boolean = false,
+    var isVisible: Boolean = false,
 ) : ListItem() {
-
     val id: Int = Random.nextInt()
 }

@@ -24,17 +24,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/expressionText"
+            android:id="@+id/expressionPrefix"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_small_8"
             android:layout_marginEnd="@dimen/spacing_small_8"
-            android:text="f(x) = x^2"
+            android:text="@string/y_equal"
             android:textColor="@color/swatch_6"
             android:textSize="@dimen/font_large_20"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/visibilityBtn"
             app:layout_constraintStart_toEndOf="@+id/colorMarker"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/expressionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_small_8"
+            android:layout_marginStart="@dimen/spacing_tiny_4"
+            android:text="x^2"
+            android:textColor="@color/swatch_6"
+            android:textSize="@dimen/font_large_20"
+            app:layout_constraintBottom_toBottomOf="@+id/expressionPrefix"
+            app:layout_constraintEnd_toStartOf="@+id/visibilityBtn"
+            app:layout_constraintStart_toEndOf="@+id/expressionPrefix"
+            app:layout_constraintTop_toTopOf="@+id/expressionPrefix" />@+id/expressionPrefix""
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
