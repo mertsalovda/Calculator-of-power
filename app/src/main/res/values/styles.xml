@@ -22,9 +22,10 @@
     <style name="AppDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <!-- Define color properties as desired -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#000</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorHighlight">@color/swatch_7</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/swatch_6</item>
         <!--        <item name="colorControlNormal">@color/dark_blue</item>-->
         <!-- Define window properties as desired -->
         <item name="android:windowNoTitle">false</item>
@@ -39,6 +40,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/swatch_6</item>
         <!--        <item name="colorControlNormal">@color/dark_blue</item>-->
         <item name="android:textColorHighlight">@color/swatch_7</item>
         <item name="android:windowBackground">@color/colorPrimary</item>

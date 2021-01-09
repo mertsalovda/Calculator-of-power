@@ -51,8 +51,7 @@ class GraphViewModel : ViewModel() {
     }
 
     /** Добавить новую фукцию в список */
-    private fun addNewGraph(graph: Graph) {
-        val graphItem = GraphItem(expression = graph.expression, markerColor = graph.color)
+    private fun addNewGraph(graphItem: GraphItem) {
         _graphItems.value?.let { it.add(0, graphItem) }
         _graphItems.postValue(_graphItems.value)
     }

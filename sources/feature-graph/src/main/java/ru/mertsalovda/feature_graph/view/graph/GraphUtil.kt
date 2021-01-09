@@ -1,11 +1,14 @@
 package ru.mertsalovda.feature_graph.view.graph
 
+import android.graphics.Color
 import android.graphics.PointF
 import android.util.Log
 import ru.mertsalovda.core_api.interfaces.Calculator
 import kotlin.math.round
 
 object GraphUtil {
+
+    private var colors = listOf(Color.BLUE, Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.RED, Color.GREEN)
 
     /**
      * Получить список точек для отрисовки графика
@@ -59,6 +62,9 @@ object GraphUtil {
             expression.replace("x", x.toString())
         }
     }
+
+    /** Получить случайный цвет */
+    fun getRandomColor() = colors.random()
 
     private fun Double.isInfinityOrNaN() =
         this == Double.POSITIVE_INFINITY || this == Double.NEGATIVE_INFINITY || this.isNaN()
