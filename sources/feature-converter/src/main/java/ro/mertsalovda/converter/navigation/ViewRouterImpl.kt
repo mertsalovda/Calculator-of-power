@@ -3,10 +3,11 @@ package ro.mertsalovda.converter.navigation
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import ro.mertsalovda.converter.ui.converter.ConverterFragment
+import ro.mertsalovda.converter.ui.currency.CurrencyItem
 import ro.mertsalovda.converter.ui.currency.CurrencyListFragment
 import javax.inject.Inject
 
-class ViewRouterImpl @Inject constructor(): ViewRouter {
+class ViewRouterImpl @Inject constructor() : ViewRouter {
 
     override fun showConverter(containerId: Int, childFragmentManager: FragmentManager) {
         childFragmentManager.beginTransaction()
@@ -14,9 +15,17 @@ class ViewRouterImpl @Inject constructor(): ViewRouter {
             .commit()
     }
 
-    override fun showCurrencyList(@IdRes containerId: Int, childFragmentManager: FragmentManager) {
+    override fun showCurrencyList(
+        @IdRes containerId: Int,
+        childFragmentManager: FragmentManager,
+        onCurrencySelected: ((CurrencyItem) -> Unit)?
+    ) {
         childFragmentManager.beginTransaction()
-            .add(containerId, CurrencyListFragment.newInstance(), CurrencyListFragment::class.simpleName)
+            .add(
+                containerId,
+                CurrencyListFragment.newInstance(onCurrencySelected),
+                CurrencyListFragment::class.simpleName
+            )
             .addToBackStack(CurrencyListFragment::class.simpleName)
             .commit()
     }

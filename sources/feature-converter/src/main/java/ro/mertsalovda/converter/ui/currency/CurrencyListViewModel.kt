@@ -24,13 +24,13 @@ class CurrencyListViewModel : ViewModel() {
     private val query = MutableLiveData<String>()
 
     /**
-     * Получить список стран соответствующих поисковому запросу query
-     * @return список стран удовлетворяющих запрос query
+     * Получить список валют соответствующих поисковому запросу query
+     * @return список валют удовлетворяющих запрос query
      */
     fun getCountriesByQuery(): LiveData<List<CurrencyItem>> {
         val result = MediatorLiveData<List<CurrencyItem>>()
 
-        // Функция фильтрации стран в соответствии с запросом query
+        // Функция в соответствии с запросом query
         val filterFun = {
             val queryStr = query.value
             val currency = currencyList.value
@@ -51,6 +51,7 @@ class CurrencyListViewModel : ViewModel() {
         this.query.value = query
     }
 
+    /** Загрузить список валюты */
     fun loadCurrencyList() {
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -69,6 +70,10 @@ class CurrencyListViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Преобразовать список [Country] в список [CurrencyItem]
+     * @param country список стран
+     */
     private fun mapCountryListToCurrencyItemList(country: List<Country>) {
         val result = country.flatMap { country ->
             country.currencies.filter {

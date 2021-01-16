@@ -1,24 +1,22 @@
 package ro.mertsalovda.converter.ui.currency
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
-import ru.mertsalovda.core_api.dto.Currency
 import ru.mertsalovda.core_api.interfaces.IScreenWithTabLayout
 
 class CurrencyListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = CurrencyListFragment()
-    }
+    private var onCurrencySelected: ((CurrencyItem) -> Unit)? = null
 
     private lateinit var binding: FrCurrencyListBinding
 
@@ -42,13 +40,20 @@ class CurrencyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
-        adapter = CurrencyAdapter { /* обработка нажатия на элемент списка */ }
+        adapter = CurrencyAdapter { currencyItem ->
+            onCurrencySelected?.let {
+                it.invoke(currencyItem)
+                val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(this.requireView().findFocus().windowToken, 0)
+                parentFragmentManager.popBackStack()
+            }
+        }
         binding.recycler.adapter = adapter
 
         setHasOptionsMenu(true)
         setOnBackPressedHolder(view)
         setToolbar()
-        setObserves()
+        setObservers()
         setListeners()
         viewModel.loadCurrencyList()
     }
@@ -87,7 +92,7 @@ class CurrencyListFragment : Fragment() {
         }
     }
 
-    private fun setObserves() {
+    private fun setObservers() {
         viewModel.getCountriesByQuery().observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
@@ -120,6 +125,18 @@ class CurrencyListFragment : Fragment() {
     override fun onDestroy() {
         (activity as IScreenWithTabLayout).showTabLayout()
         super.onDestroy()
+    }
+
+    companion object {
+        fun newInstance(onCurrencySelected: ((CurrencyItem) -> Unit)?): CurrencyListFragment {
+            val fragment = CurrencyListFragment()
+            fragment.setCurrencySelectedListener(onCurrencySelected)
+            return fragment
+        }
+    }
+
+    fun setCurrencySelectedListener(onCurrencySelected: ((CurrencyItem) -> Unit)?) {
+        this.onCurrencySelected = onCurrencySelected
     }
 
 }

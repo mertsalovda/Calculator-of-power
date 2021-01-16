@@ -20,12 +20,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/iconUnit1"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/spacing_tiny_4"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ripple_bg_rec_transparent"
             app:layout_constraintBottom_toBottomOf="@+id/titleUnit1"
             app:layout_constraintEnd_toStartOf="@+id/titleUnit1"
             app:layout_constraintHorizontal_bias="0.5"
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/spacing_tiny_4"
             android:layout_marginEnd="@dimen/spacing_tiny_4"
-            android:text="USD"
+            android:text="NONE"
             app:layout_constraintBottom_toBottomOf="@+id/currencySelectBtn1"
             app:layout_constraintEnd_toStartOf="@+id/currencySelectBtn1"
             app:layout_constraintHorizontal_bias="0.5"
@@ -110,12 +110,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/iconUnit2"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/spacing_tiny_4"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ripple_bg_rec_transparent"
             app:layout_constraintBottom_toBottomOf="@+id/titleUnit2"
             app:layout_constraintEnd_toStartOf="@+id/titleUnit2"
             app:layout_constraintHorizontal_bias="0.5"
@@ -129,7 +129,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/spacing_tiny_4"
             android:layout_marginEnd="@dimen/spacing_tiny_4"
-            android:text="RUR"
+            android:text="NONE"
             app:layout_constraintBottom_toBottomOf="@+id/currencySelectBtn2"
             app:layout_constraintEnd_toStartOf="@+id/currencySelectBtn2"
             app:layout_constraintHorizontal_bias="0.5"
