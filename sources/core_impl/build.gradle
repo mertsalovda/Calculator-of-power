@@ -52,6 +52,7 @@ dependencies {
     // Network
     implementation retrofit['retrofit']
     implementation retrofit['converter-gson']
+    implementation retrofit['kotlin-coroutines-adapter']
     implementation okhttp3['okhttp']
     implementation okhttp3['logging-interceptor']
     implementation gson

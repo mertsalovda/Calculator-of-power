@@ -1,12 +1,14 @@
 package ro.mertsalovda.converter.ui.currency
 
 import android.os.Bundle
-import android.view.KeyEvent
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
 import ru.mertsalovda.core_api.dto.Currency
@@ -35,18 +37,70 @@ class CurrencyListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
-
         (activity as IScreenWithTabLayout).hideTabLayout()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
         adapter = CurrencyAdapter { /* обработка нажатия на элемент списка */ }
         binding.recycler.adapter = adapter
 
+        setHasOptionsMenu(true)
         setOnBackPressedHolder(view)
+        setToolbar()
+        setObserves()
+        setListeners()
+        viewModel.loadCurrencyList()
+    }
 
-        adapter.setData(listOf(Currency(), Currency(), Currency(), Currency()))
+    private fun setToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        val toolbar = (requireActivity() as AppCompatActivity).supportActionBar
+        toolbar?.let{
+            it.setDisplayHomeAsUpEnabled(true)
+            it.title = requireContext().getString(R.string.choose_currency)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home){
+            parentFragmentManager.popBackStack()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+    private fun setListeners() {
+        binding.queryEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                editable?.let {
+                    viewModel.setSearchQuery(it.toString())
+                }
+            }
+
+        })
+
+        binding.refresher.setOnRefreshListener {
+            viewModel.loadCurrencyList()
+        }
+    }
+
+    private fun setObserves() {
+        viewModel.getCountriesByQuery().observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.refresher.isRefreshing = it
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            it?.let {
+                Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun setOnBackPressedHolder(view: View) {

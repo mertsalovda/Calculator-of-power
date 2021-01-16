@@ -1,6 +1,7 @@
 package ru.mertsalovda.core_impl.network
 
 import com.google.gson.Gson
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -15,9 +16,9 @@ import ru.mertsalovda.core_api.providers.NetworkProvider
 import ru.mertsalovda.core_impl.BuildConfig
 import javax.inject.Singleton
 
-const val COUNTRIES_BASE_URL = "https://restcountries.eu/rest/v2"
-const val NEWTON_BASE_URL = "https://newton.now.sh/api/v2"
-const val FOREIGN_EXCHANGE_RATES_BASE_URL = "https://api.exchangeratesapi.io"
+const val COUNTRIES_BASE_URL = "https://restcountries.eu/rest/v2/"
+const val NEWTON_BASE_URL = "https://newton.now.sh/api/v2/"
+const val FOREIGN_EXCHANGE_RATES_BASE_URL = "https://api.exchangeratesapi.io/"
 
 @Module
 class NetworkModule{
@@ -28,6 +29,9 @@ class NetworkModule{
     @Provides
     fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
         GsonConverterFactory.create(gson)
+
+    @Provides
+    fun provideKotlinCoroutineAdapter() = CoroutineCallAdapterFactory()
 
     @Singleton
     @Provides
@@ -48,12 +52,14 @@ class NetworkModule{
     @Reusable
     fun provideCountriesApi(
         client: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        coroutineCallAdapterFactory: CoroutineCallAdapterFactory
     ): CountriesApi =
         Retrofit.Builder()
             .baseUrl(COUNTRIES_BASE_URL)
             .client(client)
             .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(coroutineCallAdapterFactory)
             .build()
             .create(CountriesApi::class.java)
 
@@ -61,12 +67,14 @@ class NetworkModule{
     @Reusable
     fun provideNewtonApi(
         client: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        coroutineCallAdapterFactory: CoroutineCallAdapterFactory
     ): NewtonApi =
         Retrofit.Builder()
             .baseUrl(NEWTON_BASE_URL)
             .client(client)
             .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(coroutineCallAdapterFactory)
             .build()
             .create(NewtonApi::class.java)
 
@@ -74,12 +82,14 @@ class NetworkModule{
     @Reusable
     fun provideForeignExchangeRatesApi(
         client: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        coroutineCallAdapterFactory: CoroutineCallAdapterFactory
     ): ForeignExchangeRatesApi =
         Retrofit.Builder()
             .baseUrl(FOREIGN_EXCHANGE_RATES_BASE_URL)
             .client(client)
             .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(coroutineCallAdapterFactory)
             .build()
             .create(ForeignExchangeRatesApi::class.java)
 }

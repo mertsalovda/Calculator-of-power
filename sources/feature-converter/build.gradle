@@ -60,6 +60,9 @@ dependencies {
     implementation dagger
     kapt daggerCompiler
 
+    // Network
+    implementation retrofit['retrofit']
+
     // Glide
     implementation glide
     kapt glideCompiler
