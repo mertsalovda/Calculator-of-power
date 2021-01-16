@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion "30.0.0"
 
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId "ru.mertsalovda.calculatorofpower"
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
