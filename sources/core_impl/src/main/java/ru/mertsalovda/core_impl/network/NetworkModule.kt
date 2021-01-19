@@ -10,15 +10,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.mertsalovda.core_api.network.CountriesApi
-import ru.mertsalovda.core_api.network.ForeignExchangeRatesApi
+import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import ru.mertsalovda.core_api.network.NewtonApi
-import ru.mertsalovda.core_api.providers.NetworkProvider
 import ru.mertsalovda.core_impl.BuildConfig
 import javax.inject.Singleton
 
 const val COUNTRIES_BASE_URL = "https://restcountries.eu/rest/v2/"
 const val NEWTON_BASE_URL = "https://newton.now.sh/api/v2/"
-const val FOREIGN_EXCHANGE_RATES_BASE_URL = "https://api.exchangeratesapi.io/"
+const val EXCHANGE_RATES_BASE_URL = "https://api.exchangeratesapi.io/"
 
 @Module
 class NetworkModule{
@@ -80,16 +79,16 @@ class NetworkModule{
 
     @Provides
     @Reusable
-    fun provideForeignExchangeRatesApi(
+    fun provideExchangeRatesApi(
         client: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory,
         coroutineCallAdapterFactory: CoroutineCallAdapterFactory
-    ): ForeignExchangeRatesApi =
+    ): ExchangeRatesApi =
         Retrofit.Builder()
-            .baseUrl(FOREIGN_EXCHANGE_RATES_BASE_URL)
+            .baseUrl(EXCHANGE_RATES_BASE_URL)
             .client(client)
             .addConverterFactory(gsonConverterFactory)
             .addCallAdapterFactory(coroutineCallAdapterFactory)
             .build()
-            .create(ForeignExchangeRatesApi::class.java)
+            .create(ExchangeRatesApi::class.java)
 }

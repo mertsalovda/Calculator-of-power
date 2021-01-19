@@ -123,6 +123,7 @@ class ConverterFragment : Fragment() {
             Value.CONVERTED_VALUE -> {
                 setImage(binding.iconUnit1, currencyItem.flagUrl)
                 binding.titleUnit1.text = currencyItem.currencyCode
+                viewModel.loadExchangeRateForBaseCurrency()
             }
             Value.RESULT_VALUE -> {
                 setImage(binding.iconUnit2, currencyItem.flagUrl)
