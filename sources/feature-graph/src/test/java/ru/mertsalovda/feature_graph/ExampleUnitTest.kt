@@ -1,4 +1,4 @@
-package ru.mertsalovda.assets
+package ru.mertsalovda.feature_graph
 
 import org.junit.Test
 

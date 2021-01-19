@@ -26,15 +26,16 @@ class MainActivity : AppCompatActivity(), IScreenWithTabLayout {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = Page.values()[position].title()
         }.attach()
+        viewPager.isUserInputEnabled = false
     }
 
     override fun hideTabLayout() {
         tabLayout.visibility = View.GONE
-        viewPager.isUserInputEnabled = false
+//        viewPager.isUserInputEnabled = false
     }
 
     override fun showTabLayout() {
         tabLayout.visibility = View.VISIBLE
-        viewPager.isUserInputEnabled = true
+//        viewPager.isUserInputEnabled = true
     }
 }

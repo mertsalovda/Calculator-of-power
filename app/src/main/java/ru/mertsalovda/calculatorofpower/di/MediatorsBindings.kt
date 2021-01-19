@@ -5,10 +5,8 @@ import dagger.Module
 import dagger.Reusable
 import ro.mertsalovda.converter.navigation.ConverterMediatorImpl
 import ru.mertsalovda.basic.navigation.BasicCalculatorMediatorImpl
-import ru.mertsalovda.core_api.mediator.BasicCalculatorMediator
-import ru.mertsalovda.core_api.mediator.ConverterMediator
-import ru.mertsalovda.core_api.mediator.MainMediator
-import ru.mertsalovda.core_api.mediator.ScientificCalculatorMediator
+import ru.mertsalovda.core_api.mediator.*
+import ru.mertsalovda.feature_graph.navigaton.GraphMediatorImpl
 import ru.mertsalovda.main.navigation.MainMediatorImpl
 import ru.mertsalovda.scientific.navigation.ScientificCalculatorMediatorImpl
 
@@ -30,4 +28,8 @@ interface MediatorsBindings {
     @Binds
     @Reusable
     fun bindsConverterMediator(converterMediatorImpl: ConverterMediatorImpl): ConverterMediator
+
+    @Binds
+    @Reusable
+    fun bindsGraphMediator(graphMediatorImpl: GraphMediatorImpl): GraphMediator
 }

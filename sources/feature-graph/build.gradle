@@ -1,17 +1,14 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "30.0.0"
 
-    packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
-    }
-
     defaultConfig {
-        applicationId "ru.mertsalovda.calculatorofpower"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
@@ -25,37 +22,48 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        develop {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
 apply from: "$project.rootDir/scripts/deps_versions.gradle"
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation coreKtx
     implementation appcompat
 
+    implementation navigationKtx['fragment-ktx']
+    implementation navigationKtx['ui-ktx']
+    implementation lifecycleExtensions
+    implementation legacySupportV4
+    implementation lifecycleViewModelKtx
+
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation androidTest['junit']
+    androidTestImplementation androidTest['runner']
+    androidTestImplementation androidTest['espresso-core']
+
+    implementation project(':sources:assets')
+    implementation project(':sources:core')
+
+    // View
     implementation material
+    implementation constraintlayout
 
     // Dagger 2
     implementation dagger
     kapt daggerCompiler
-
-    implementation project(':sources:assets')
-    implementation project(':sources:core')
-    implementation project(':sources:feature-basic-calculator')
-    implementation project(':sources:feature-converter')
-    implementation project(':sources:feature-main-screen')
-    implementation project(':sources:feature-graph')
-    implementation project(':sources:feature-scientific-calculator')
 }
