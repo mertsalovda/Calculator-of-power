@@ -54,6 +54,8 @@
     <style name="ExpressionTextInputEditText" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/swatch_7</item>
         <item name="android:textSize">@dimen/font_large_40</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:minLines">1</item>
         <item name="android:textCursorDrawable">@drawable/text_select_handler</item>
         <item name="android:textSelectHandle">@drawable/ic_text_select_handler</item>
         <item name="android:textSelectHandleLeft">@drawable/ic_text_select_handler</item>
