@@ -10,15 +10,15 @@ import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.navigation.ViewRouter
 import ro.mertsalovda.converter.ui.currency.CurrencyItem
-import ru.mertsalovda.core.CoreProvidersFactory
 import ru.mertsalovda.core_api.dto.exchange.ExchangeRate
+import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import javax.inject.Inject
 import kotlin.math.round
 
 class ConverterViewModel : ViewModel() {
 
-    private val exchangeRatesApi =
-        CoreProvidersFactory.createNetworkBuilder().provideExchangeRatesApi()
+    @Inject
+    lateinit var exchangeRatesApi: ExchangeRatesApi
 
     @Inject
     lateinit var viewRouter: ViewRouter

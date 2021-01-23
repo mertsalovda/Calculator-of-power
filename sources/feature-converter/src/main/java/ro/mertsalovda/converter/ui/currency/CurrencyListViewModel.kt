@@ -2,15 +2,25 @@ package ro.mertsalovda.converter.ui.currency
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import ru.mertsalovda.core.CoreProvidersFactory
+import ro.mertsalovda.converter.di.ConverterComponent
 import ru.mertsalovda.core_api.dto.Country
 import ru.mertsalovda.core_api.network.CountriesApi
 import java.lang.Exception
+import javax.inject.Inject
 
 class CurrencyListViewModel : ViewModel() {
 
-    private var countriesApi: CountriesApi =
-        CoreProvidersFactory.createNetworkBuilder().provideCountriesApi()
+    /** Список поддерживаемых валют */
+    private val currencyCodeList = listOf<String>(
+        "CAD", "HKD", "ISK", "PHP", "DKK", "HUF", "CZK",
+        "AUD", "RON", "SEK", "IDR", "INR", "BRL", "RUB",
+        "HRK", "JPY", "THB", "CHF", "SGD", "PLN", "BGN",
+        "TRY", "CNY", "NOK", "NZD", "ZAR", "USD", "MXN",
+        "ILS", "GBP", "KRW", "MYR",
+    )
+
+    @Inject
+    lateinit var countriesApi: CountriesApi
 
     private val currencyList = MutableLiveData<List<CurrencyItem>>(listOf())
 
@@ -22,6 +32,10 @@ class CurrencyListViewModel : ViewModel() {
 
     // Поисковый запрос пользователей
     private val query = MutableLiveData<String>()
+
+    init {
+        ConverterComponent.create().inject(this)
+    }
 
     /**
      * Получить список валют соответствующих поисковому запросу query
@@ -76,8 +90,10 @@ class CurrencyListViewModel : ViewModel() {
      */
     private fun mapCountryListToCurrencyItemList(country: List<Country>) {
         val result = country.flatMap { country ->
-            country.currencies.filter {
-                !it.code.isNullOrEmpty() && it.code != "(none)"
+            country.currencies.filter { currency ->
+                !currency.code.isNullOrEmpty()
+                        && currency.code != "(none)"
+                        && currencyCodeList.contains(currency.code)
             }.map { currency ->
                 CurrencyItem(
                     countryName = country.name,

@@ -12,5 +12,7 @@ interface ExchangeRatesApi {
      * @param base код базовой валюта (пример RUB, USD и т.д.)
      */
     @GET("latest")
-    suspend fun getLatestByBaseCurrency(@Query("base") base: String): Response<ExchangeRate>
+    suspend fun getLatestByBaseCurrency(
+        @Query("base") base: String
+    ): Response<ExchangeRate>
 }
