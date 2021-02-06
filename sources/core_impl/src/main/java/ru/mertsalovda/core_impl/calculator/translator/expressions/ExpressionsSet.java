@@ -30,6 +30,7 @@ public class ExpressionsSet {
         put("cot", Function.FunctionType.COTAN);
         put("ctg", Function.FunctionType.COTAN);
         put("pow", Function.FunctionType.POW);
+        put("sqrt", Function.FunctionType.SQRT);
     }};
 
     private static final HashMap<Character, Bracket.BracketType> brackets = new HashMap<Character, Bracket.BracketType>() {{

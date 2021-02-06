@@ -236,17 +236,15 @@ class GraphView @JvmOverloads constructor(
         for (graph in graphs) {
             if (graph.points.isEmpty()) return
             val path = Path()
-            path.moveTo(
-                (graph.points[0]!!.x * gridStep).toX(),
-                (graph.points[0]!!.y * gridStep).toY()
-            )
+            setStartPoint(path, graph.points)
             for ((index, xy) in graph.points.withIndex()) {
-                if (xy == null && graph.points[index + 1] != null) {
-                    val x = graph.points[index + 1]!!.x * gridStep
-                    val y = graph.points[index + 1]!!.y * gridStep
+                val i = if (index + 1 < graph.points.size) index + 1 else index
+                if (xy == null && graph.points[i] != null) {
+                    val x = graph.points[i]!!.x * gridStep
+                    val y = graph.points[i]!!.y * gridStep
                     path.moveTo(x.toX(), y.toY())
                     continue
-                } else if (xy == null && graph.points[index + 1] == null) {
+                } else if (xy == null && graph.points[i] == null) {
                     continue
                 } else {
                     val x = xy!!.x * gridStep
@@ -258,24 +256,22 @@ class GraphView @JvmOverloads constructor(
         }
     }
 
-    /** Нарисовать график */
+    /** Нарисовать график анимированно*/
     private fun drawGraphAnimated(canvas: Canvas) {
         if (graphs.isEmpty()) return
         val graph = graphs.last()
         if (graph.points.isEmpty()) return
         val path = Path()
-        path.moveTo(
-            (graph.points[0]!!.x * gridStep).toX(),
-            (graph.points[0]!!.y * gridStep).toY()
-        )
+        setStartPoint(path, graph.points)
         for ((index, xy) in graph.points.withIndex()) {
             if (index >= xIndex) break
-            if (xy == null && graph.points[index + 1] != null) {
-                val x = graph.points[index + 1]!!.x * gridStep
-                val y = graph.points[index + 1]!!.y * gridStep
+            val i = if (index + 1 < graph.points.size) index + 1 else index
+            if (xy == null && graph.points[i] != null) {
+                val x = graph.points[i]!!.x * gridStep
+                val y = graph.points[i]!!.y * gridStep
                 path.moveTo(x.toX(), y.toY())
                 continue
-            } else if (xy == null && graph.points[index + 1] == null) {
+            } else if (xy == null && graph.points[i] == null) {
                 continue
             } else {
                 val x = xy!!.x * gridStep
@@ -284,6 +280,18 @@ class GraphView @JvmOverloads constructor(
             }
         }
         canvas.drawPath(path, graphPaint.apply { color = graph.color })
+    }
+
+    private fun setStartPoint(path: Path, points: List<PointF?>) {
+        for (point in points) {
+            if (point != null) {
+                path.moveTo(
+                    (point.x * gridStep).toX(),
+                    (point.y * gridStep).toY()
+                )
+                return
+            }
+        }
     }
 
     /** Получить случайный цвет из перечня цветов */

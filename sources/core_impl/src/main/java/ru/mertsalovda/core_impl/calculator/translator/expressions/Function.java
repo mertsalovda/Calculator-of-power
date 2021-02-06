@@ -4,7 +4,7 @@ package ru.mertsalovda.core_impl.calculator.translator.expressions;
  * Класс, описывающий функцию математического выражения
  */
 public class Function implements Computational {
-    enum FunctionType {NONE, SIN, COS, TAN, COTAN, POW}
+    enum FunctionType {NONE, SIN, COS, TAN, COTAN, POW, SQRT}
 
     private FunctionType type = FunctionType.NONE;
     private Double[] parametres = null;
@@ -25,7 +25,8 @@ public class Function implements Computational {
         if (type == FunctionType.SIN ||
                 type == FunctionType.COS ||
                 type == FunctionType.TAN ||
-                type == FunctionType.COTAN) {
+                type == FunctionType.COTAN ||
+                type == FunctionType.SQRT) {
             return 1;
         } else if (type == FunctionType.POW)
             return 2;
@@ -70,7 +71,8 @@ public class Function implements Computational {
         if (type == FunctionType.SIN ||
                 type == FunctionType.COS ||
                 type == FunctionType.TAN ||
-                type == FunctionType.COTAN) {
+                type == FunctionType.COTAN ||
+                type == FunctionType.SQRT) {
             return count == 1; // 1 параметр
         } else if (type == FunctionType.POW) {
             return count == 2;
@@ -96,6 +98,8 @@ public class Function implements Computational {
                 return 1 / StrictMath.tan(parametres[0]);
             case POW:
                 return StrictMath.pow(parametres[1], parametres[0]);
+            case SQRT:
+                return StrictMath.sqrt(parametres[0]);
         }
 
         return 0.0;

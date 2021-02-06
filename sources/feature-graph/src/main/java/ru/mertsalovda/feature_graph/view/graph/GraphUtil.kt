@@ -38,7 +38,6 @@ object GraphUtil {
                 val roundY = round(calculator.getResult().toFloat() * 100) / 100
                 PointF(roundX, roundY)
             }
-            Log.d("Point", "Point $point")
             points.add(point)
             x += step
         }
@@ -52,14 +51,21 @@ object GraphUtil {
      * @return - строка с подставленным значением вместо X.
      */
     private fun replaceX(expression: String, x: Float): String {
+        val expr = if (expression.startsWith("-")) {
+            "0$expression"
+        } else {
+            expression
+        }
         return if (x < 0) {
-            expression.toLowerCase()
+            expr.toLowerCase()
                 .replace("+x", x.toString())
                 .replace("*x", "*(0$x)")
                 .replace("/x", "/(0$x)")
                 .replace("x", "(0$x)")
+                .replace("(-", "(0-")
         } else {
-            expression.replace("x", x.toString())
+            expr.replace("x", x.toString())
+                .replace("(-", "(0-")
         }
     }
 
