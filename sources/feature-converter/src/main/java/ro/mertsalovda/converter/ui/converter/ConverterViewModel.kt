@@ -10,18 +10,17 @@ import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.navigation.ViewRouter
 import ro.mertsalovda.converter.ui.currency.CurrencyItem
+import ru.mertsalovda.core_api.database.CalculatorDao
 import ru.mertsalovda.core_api.dto.exchange.ExchangeRate
 import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import javax.inject.Inject
 import kotlin.math.round
 
-class ConverterViewModel : ViewModel() {
-
-    @Inject
-    lateinit var exchangeRatesApi: ExchangeRatesApi
-
-    @Inject
-    lateinit var viewRouter: ViewRouter
+class ConverterViewModel(
+    var exchangeRatesApi: ExchangeRatesApi,
+    var viewRouter: ViewRouter,
+    var calculatorDao: CalculatorDao
+) : ViewModel() {
 
     private val _unit1 = MutableLiveData<String>("0")
     val unit1: LiveData<String> = _unit1
@@ -38,10 +37,6 @@ class ConverterViewModel : ViewModel() {
     val unitPreview2: LiveData<CurrencyItem?> = _unitPreview2
 
     private val _exchangeRate = MutableLiveData<ExchangeRate?>(null)
-
-    init {
-        ConverterComponent.create().inject(this)
-    }
 
     /** Указать какая величина в фокусе */
     fun setValueFocused(value: Value) {

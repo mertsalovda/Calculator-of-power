@@ -12,9 +12,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
+import ro.mertsalovda.converter.di.ConverterComponent
+import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
 import ru.mertsalovda.core_api.interfaces.IScreenWithTabLayout
+import ru.mertsalovda.core_api.network.CountriesApi
+import ru.mertsalovda.core_api.providers.AppProvider
+import javax.inject.Inject
 
 class CurrencyListFragment : Fragment() {
+
+    @Inject
+    lateinit var countriesApi: CountriesApi
 
     private var onCurrencySelected: ((CurrencyItem) -> Unit)? = null
 
@@ -24,10 +32,17 @@ class CurrencyListFragment : Fragment() {
 
     private lateinit var adapter: CurrencyAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ConverterComponent.create(object : AppProvider {
+            override fun provideContext(): Context = requireActivity().applicationContext
+        }).inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = inflater.inflate(R.layout.fr_currency_list, container, false)
         binding = FrCurrencyListBinding.bind(view)
         return binding.root
@@ -39,7 +54,10 @@ class CurrencyListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ConverterViewModelFactory.getCurrencyViewModelFactory(countriesApi)
+        ).get(CurrencyListViewModel::class.java)
         adapter = CurrencyAdapter { currencyItem ->
             onCurrencySelected?.let {
                 it.invoke(currencyItem)

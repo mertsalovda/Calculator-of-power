@@ -2,13 +2,11 @@ package ro.mertsalovda.converter.ui.currency
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import ro.mertsalovda.converter.di.ConverterComponent
 import ru.mertsalovda.core_api.dto.Country
 import ru.mertsalovda.core_api.network.CountriesApi
 import java.lang.Exception
-import javax.inject.Inject
 
-class CurrencyListViewModel : ViewModel() {
+class CurrencyListViewModel(private val countriesApi: CountriesApi) : ViewModel() {
 
     /** Список поддерживаемых валют */
     private val currencyCodeList = listOf<String>(
@@ -18,10 +16,6 @@ class CurrencyListViewModel : ViewModel() {
         "TRY", "CNY", "NOK", "NZD", "ZAR", "USD", "MXN",
         "ILS", "GBP", "KRW", "MYR",
     )
-
-    @Inject
-    lateinit var countriesApi: CountriesApi
-
     private val currencyList = MutableLiveData<List<CurrencyItem>>(listOf())
 
     private val _isLoading = MutableLiveData<Boolean>(false)
@@ -32,10 +26,6 @@ class CurrencyListViewModel : ViewModel() {
 
     // Поисковый запрос пользователей
     private val query = MutableLiveData<String>()
-
-    init {
-        ConverterComponent.create().inject(this)
-    }
 
     /**
      * Получить список валют соответствующих поисковому запросу query
