@@ -14,6 +14,7 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
 import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
+import ru.mertsalovda.core_api.database.CalculatorDao
 import ru.mertsalovda.core_api.interfaces.IScreenWithTabLayout
 import ru.mertsalovda.core_api.network.CountriesApi
 import ru.mertsalovda.core_api.providers.AppProvider
@@ -23,6 +24,9 @@ class CurrencyListFragment : Fragment() {
 
     @Inject
     lateinit var countriesApi: CountriesApi
+
+    @Inject
+    lateinit var calculatorDao: CalculatorDao
 
     private var onCurrencySelected: ((CurrencyItem) -> Unit)? = null
 

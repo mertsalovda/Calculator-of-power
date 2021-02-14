@@ -2,11 +2,15 @@ package ro.mertsalovda.converter.ui.currency
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import ru.mertsalovda.core_api.database.CalculatorDao
 import ru.mertsalovda.core_api.dto.Country
 import ru.mertsalovda.core_api.network.CountriesApi
 import java.lang.Exception
 
-class CurrencyListViewModel(private val countriesApi: CountriesApi) : ViewModel() {
+class CurrencyListViewModel(
+    private val countriesApi: CountriesApi,
+    private val calculatorDao: CalculatorDao
+    ) : ViewModel() {
 
     /** Список поддерживаемых валют */
     private val currencyCodeList = listOf<String>(
