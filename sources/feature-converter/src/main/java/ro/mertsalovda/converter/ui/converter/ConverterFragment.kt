@@ -1,6 +1,5 @@
 package ro.mertsalovda.converter.ui.converter
 
-import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.text.InputType
@@ -18,26 +17,18 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
 import ro.mertsalovda.converter.databinding.KeypadNumericBinding
 import ro.mertsalovda.converter.di.ConverterComponent
-import ro.mertsalovda.converter.navigation.ViewRouter
-import ro.mertsalovda.converter.ui.currency.CurrencyItem
+import ru.mertsalovda.core_api.dto.CurrencyItem
 import ro.mertsalovda.converter.utils.GlideApp
 import ro.mertsalovda.converter.utils.SvgSoftwareLayerSetter
 import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
-import ru.mertsalovda.core_api.database.CalculatorDao
-import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import ru.mertsalovda.core_api.providers.AppProvider
+import ru.mertsalovda.core_api.providers.AppWithFacade
 import javax.inject.Inject
 
 class ConverterFragment : Fragment() {
 
     @Inject
-    lateinit var exchangeRatesApi: ExchangeRatesApi
-
-    @Inject
-    lateinit var viewRouter: ViewRouter
-
-    @Inject
-    lateinit var calculatorDao: CalculatorDao
+    lateinit var viewModelFactory: ConverterViewModelFactory
 
     companion object {
         @JvmStatic
@@ -53,9 +44,9 @@ class ConverterFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ConverterComponent.create(object : AppProvider {
-            override fun provideContext(): Context = requireActivity().applicationContext
-        }).inject(this)
+        val appProvider =
+            (requireActivity().application as AppWithFacade).getFacade() as AppProvider
+        ConverterComponent.create(appProvider).inject(this)
     }
 
     override fun onCreateView(
@@ -70,10 +61,7 @@ class ConverterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel = ViewModelProvider(
-            this,
-            ConverterViewModelFactory.getConverterViewModelFactory(exchangeRatesApi, viewRouter, calculatorDao)
-        ).get(ConverterViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ConverterViewModel::class.java)
 
         disableSoftKeypad()
         initKeypadMap()

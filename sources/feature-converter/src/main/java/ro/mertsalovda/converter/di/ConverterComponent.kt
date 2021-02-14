@@ -10,7 +10,9 @@ import ru.mertsalovda.core.CoreProvidersFactory
 import ru.mertsalovda.core_api.database.DatabaseProvider
 import ru.mertsalovda.core_api.providers.AppProvider
 import ru.mertsalovda.core_api.providers.NetworkProvider
+import javax.inject.Singleton
 
+@Singleton
 @Component(
     modules = [ConverterModule::class],
     dependencies = [NetworkProvider::class, DatabaseProvider::class]

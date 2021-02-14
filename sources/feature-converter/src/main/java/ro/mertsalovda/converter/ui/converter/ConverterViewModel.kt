@@ -8,32 +8,36 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.navigation.ViewRouter
-import ro.mertsalovda.converter.ui.currency.CurrencyItem
-import ru.mertsalovda.core_api.database.CalculatorDao
+import ro.mertsalovda.converter.repository.CurrencyConverterRepository
+import ru.mertsalovda.core_api.dto.CurrencyItem
 import ru.mertsalovda.core_api.dto.exchange.ExchangeRate
-import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import kotlin.math.round
 
 class ConverterViewModel(
-    private val exchangeRatesApi: ExchangeRatesApi,
     private val viewRouter: ViewRouter,
-    private val calculatorDao: CalculatorDao
+    private val currencyConverterRepository: CurrencyConverterRepository
 ) : ViewModel() {
 
+    /** Преобразуемая единица измерения Value.CONVERTED_VALUE*/
     private val _unit1 = MutableLiveData<String>("0")
     val unit1: LiveData<String> = _unit1
 
+    /** Преобразованная единица измерения Value.RESULT_VALUE */
     private val _unit2 = MutableLiveData<String>("0")
     val unit2: LiveData<String> = _unit2
 
+    /** Текущее выбранное значение */
     private var selectedValue = Value.CONVERTED_VALUE
 
+    /** Представление для преобразуемой единици измерения */
     private val _unitPreview1 = MutableLiveData<CurrencyItem?>(null)
     val unitPreview1: LiveData<CurrencyItem?> = _unitPreview1
 
+    /** Представление для преобразованной единици измерения */
     private val _unitPreview2 = MutableLiveData<CurrencyItem?>(null)
     val unitPreview2: LiveData<CurrencyItem?> = _unitPreview2
 
+    /** Обменный курс валют */
     private val _exchangeRate = MutableLiveData<ExchangeRate?>(null)
 
     /** Указать какая величина в фокусе */
@@ -97,16 +101,11 @@ class ConverterViewModel(
         viewModelScope.launch {
             _unitPreview1.value?.currencyCode?.let { code ->
                 try {
-                    val exchangeRate = exchangeRatesApi.getLatestByBaseCurrency(code)
-                    if (exchangeRate.isSuccessful) {
-                        _exchangeRate.postValue(exchangeRate.body())
-                    } else {
-                        // TODO добавить сообщение
-                    }
+                    val exchangeRate = currencyConverterRepository.getExchangeRateByBaseCurrency(code)
+                    _exchangeRate.postValue(exchangeRate)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         }
     }
