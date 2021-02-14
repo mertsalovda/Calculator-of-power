@@ -69,16 +69,21 @@ class ConverterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.etUnit1.inputType = InputType.TYPE_NULL
-        binding.etUnit2.inputType = InputType.TYPE_NULL
+
         viewModel = ViewModelProvider(
             this,
             ConverterViewModelFactory.getConverterViewModelFactory(exchangeRatesApi, viewRouter, calculatorDao)
         ).get(ConverterViewModel::class.java)
 
+        disableSoftKeypad()
         initKeypadMap()
         setListeners()
         setObservers()
+    }
+
+    private fun disableSoftKeypad() {
+        binding.etUnit1.inputType = InputType.TYPE_NULL
+        binding.etUnit2.inputType = InputType.TYPE_NULL
     }
 
     private fun initKeypadMap() {
@@ -180,10 +185,5 @@ class ConverterFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .listener(SvgSoftwareLayerSetter())
             .into(imageView)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ConverterViewModel::class.java)
     }
 }

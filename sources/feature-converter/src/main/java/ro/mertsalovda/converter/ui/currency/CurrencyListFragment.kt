@@ -56,8 +56,9 @@ class CurrencyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(
             this,
-            ConverterViewModelFactory.getCurrencyViewModelFactory(countriesApi)
+            ConverterViewModelFactory.getCurrencyViewModelFactory(countriesApi, calculatorDao)
         ).get(CurrencyListViewModel::class.java)
+
         adapter = CurrencyAdapter { currencyItem ->
             onCurrencySelected?.let {
                 it.invoke(currencyItem)

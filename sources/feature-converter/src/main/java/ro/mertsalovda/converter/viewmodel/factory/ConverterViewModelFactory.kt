@@ -10,19 +10,27 @@ import ru.mertsalovda.core_api.network.CountriesApi
 import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import java.lang.Exception
 
-class ConverterViewModelFactory private constructor(): ViewModelProvider.Factory {
+class ConverterViewModelFactory private constructor() : ViewModelProvider.Factory {
 
-    private lateinit var exchangeRatesApi: ExchangeRatesApi
-    private lateinit var viewRouter: ViewRouter
-    private lateinit var calculatorDao: CalculatorDao
-    private lateinit var countriesApi: CountriesApi
+    private var exchangeRatesApi: ExchangeRatesApi? = null
+    private var viewRouter: ViewRouter? = null
+    private var calculatorDao: CalculatorDao? = null
+    private var countriesApi: CountriesApi? = null
+
 
     companion object {
+        private var factory: ConverterViewModelFactory? = null
+
         @JvmStatic
-        fun getCurrencyViewModelFactory(countriesApi: CountriesApi): ConverterViewModelFactory {
-            val factory = ConverterViewModelFactory()
-            factory.setDependencies(countriesApi)
-            return factory
+        fun getCurrencyViewModelFactory(
+            countriesApi: CountriesApi,
+            calculatorDao: CalculatorDao
+        ): ConverterViewModelFactory {
+            if (factory == null) {
+                factory = ConverterViewModelFactory()
+            }
+            factory!!.setDependencies(countriesApi = countriesApi, calculatorDao = calculatorDao)
+            return factory!!
         }
 
         @JvmStatic
@@ -31,36 +39,45 @@ class ConverterViewModelFactory private constructor(): ViewModelProvider.Factory
             viewRouter: ViewRouter,
             calculatorDao: CalculatorDao
         ): ConverterViewModelFactory {
-            val factory = ConverterViewModelFactory()
-            factory.setDependencies(exchangeRatesApi, viewRouter, calculatorDao)
-            return factory
+            if (factory == null) {
+                factory = ConverterViewModelFactory()
+            }
+            factory!!.setDependencies(exchangeRatesApi, viewRouter, calculatorDao)
+            return factory!!
         }
     }
 
     private fun setDependencies(
-        exchangeRatesApi: ExchangeRatesApi,
-        viewRouter: ViewRouter,
-        calculatorDao: CalculatorDao
+        exchangeRatesApi: ExchangeRatesApi? = null,
+        viewRouter: ViewRouter? = null,
+        calculatorDao: CalculatorDao? = null,
+        countriesApi: CountriesApi? = null,
     ) {
-        this.exchangeRatesApi = exchangeRatesApi
-        this.viewRouter = viewRouter
-        this.calculatorDao = calculatorDao
-    }
+        if (this.exchangeRatesApi == null)
+            this.exchangeRatesApi = exchangeRatesApi
 
-    private fun setDependencies(countriesApi: CountriesApi) {
-        this.countriesApi = countriesApi
-    }
+        if (this.viewRouter == null)
+            this.viewRouter = viewRouter
 
+        if (this.calculatorDao == null)
+            this.calculatorDao = calculatorDao
+
+        if (this.countriesApi == null)
+            this.countriesApi = countriesApi
+    }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when (modelClass) {
             ConverterViewModel::class.java -> ConverterViewModel(
-                exchangeRatesApi,
-                viewRouter,
-                calculatorDao
+                exchangeRatesApi!!,
+                viewRouter!!,
+                calculatorDao!!
             ) as T
-            CurrencyListViewModel::class.java -> CurrencyListViewModel(countriesApi) as T
-            else -> throw Exception("$modelClass невозможно создать. Нужен ConverterViewModel::class")
+            CurrencyListViewModel::class.java -> CurrencyListViewModel(
+                countriesApi!!,
+                calculatorDao!!
+            ) as T
+            else -> throw Exception("$modelClass невозможно создать.")
         }
     }
 }

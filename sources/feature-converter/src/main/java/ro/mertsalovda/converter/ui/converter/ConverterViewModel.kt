@@ -7,19 +7,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.navigation.ViewRouter
 import ro.mertsalovda.converter.ui.currency.CurrencyItem
 import ru.mertsalovda.core_api.database.CalculatorDao
 import ru.mertsalovda.core_api.dto.exchange.ExchangeRate
 import ru.mertsalovda.core_api.network.ExchangeRatesApi
-import javax.inject.Inject
 import kotlin.math.round
 
 class ConverterViewModel(
-    var exchangeRatesApi: ExchangeRatesApi,
-    var viewRouter: ViewRouter,
-    var calculatorDao: CalculatorDao
+    private val exchangeRatesApi: ExchangeRatesApi,
+    private val viewRouter: ViewRouter,
+    private val calculatorDao: CalculatorDao
 ) : ViewModel() {
 
     private val _unit1 = MutableLiveData<String>("0")
@@ -60,7 +58,7 @@ class ConverterViewModel(
 
     /** Удалить последний символ у выбронной единицы измерения */
     private fun deleteLastSymbol(unit: MutableLiveData<String>) {
-        var currentValue = unit.value ?: return
+        val currentValue = unit.value ?: return
         val end = if (currentValue.isEmpty()) 0 else currentValue.length - 1
         val result = if (end == 0) "0" else currentValue.substring(0, end)
         unit.value = result
@@ -103,7 +101,7 @@ class ConverterViewModel(
                     if (exchangeRate.isSuccessful) {
                         _exchangeRate.postValue(exchangeRate.body())
                     } else {
-
+                        // TODO добавить сообщение
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
