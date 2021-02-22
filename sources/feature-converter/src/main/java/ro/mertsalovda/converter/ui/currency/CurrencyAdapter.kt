@@ -2,7 +2,6 @@ package ro.mertsalovda.converter.ui.currency
 
 import android.graphics.drawable.PictureDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +11,7 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.ItemCurrencyBinding
 import ro.mertsalovda.converter.utils.GlideApp
 import ro.mertsalovda.converter.utils.SvgSoftwareLayerSetter
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 
 class CurrencyAdapter(private val onClickListener: ((CurrencyItem) -> Unit)? = null) :
     RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {

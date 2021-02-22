@@ -16,11 +16,19 @@ import ro.mertsalovda.converter.ConverterFlowFragment
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
 import ro.mertsalovda.converter.databinding.KeypadNumericBinding
-import ro.mertsalovda.converter.ui.currency.CurrencyItem
+import ro.mertsalovda.converter.di.ConverterComponent
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import ro.mertsalovda.converter.utils.GlideApp
 import ro.mertsalovda.converter.utils.SvgSoftwareLayerSetter
+import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
+import ru.mertsalovda.core_api.providers.AppProvider
+import ru.mertsalovda.core_api.providers.AppWithFacade
+import javax.inject.Inject
 
 class ConverterFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ConverterViewModelFactory
 
     companion object {
         @JvmStatic
@@ -34,6 +42,13 @@ class ConverterFragment : Fragment() {
 
     private lateinit var keypadMap: Map<String, View>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val appProvider =
+            (requireActivity().application as AppWithFacade).getFacade() as AppProvider
+        ConverterComponent.create(appProvider).inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,13 +60,18 @@ class ConverterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.etUnit1.inputType = InputType.TYPE_NULL
-        binding.etUnit2.inputType = InputType.TYPE_NULL
-        viewModel = ViewModelProvider(this).get(ConverterViewModel::class.java)
 
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ConverterViewModel::class.java)
+
+        disableSoftKeypad()
         initKeypadMap()
         setListeners()
         setObservers()
+    }
+
+    private fun disableSoftKeypad() {
+        binding.etUnit1.inputType = InputType.TYPE_NULL
+        binding.etUnit2.inputType = InputType.TYPE_NULL
     }
 
     private fun initKeypadMap() {
@@ -153,10 +173,5 @@ class ConverterFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .listener(SvgSoftwareLayerSetter())
             .into(imageView)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ConverterViewModel::class.java)
     }
 }

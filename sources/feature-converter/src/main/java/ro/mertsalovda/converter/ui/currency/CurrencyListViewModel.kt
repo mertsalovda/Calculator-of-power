@@ -2,25 +2,11 @@ package ro.mertsalovda.converter.ui.currency
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import ro.mertsalovda.converter.di.ConverterComponent
-import ru.mertsalovda.core_api.dto.Country
-import ru.mertsalovda.core_api.network.CountriesApi
+import ro.mertsalovda.converter.repository.CurrencyRepository
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import java.lang.Exception
-import javax.inject.Inject
 
-class CurrencyListViewModel : ViewModel() {
-
-    /** Список поддерживаемых валют */
-    private val currencyCodeList = listOf<String>(
-        "CAD", "HKD", "ISK", "PHP", "DKK", "HUF", "CZK",
-        "AUD", "RON", "SEK", "IDR", "INR", "BRL", "RUB",
-        "HRK", "JPY", "THB", "CHF", "SGD", "PLN", "BGN",
-        "TRY", "CNY", "NOK", "NZD", "ZAR", "USD", "MXN",
-        "ILS", "GBP", "KRW", "MYR",
-    )
-
-    @Inject
-    lateinit var countriesApi: CountriesApi
+class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewModel() {
 
     private val currencyList = MutableLiveData<List<CurrencyItem>>(listOf())
 
@@ -32,10 +18,6 @@ class CurrencyListViewModel : ViewModel() {
 
     // Поисковый запрос пользователей
     private val query = MutableLiveData<String>()
-
-    init {
-        ConverterComponent.create().inject(this)
-    }
 
     /**
      * Получить список валют соответствующих поисковому запросу query
@@ -70,38 +52,13 @@ class CurrencyListViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
-                val country = countriesApi.getAllCountries()
-                if (country.isSuccessful) {
-                    country.body()?.let { mapCountryListToCurrencyItemList(it) }
-                } else {
-                    _errorMessage.postValue(country.message())
-                }
+                val result = repository.getCurrencyItemList()
+                currencyList.postValue(result)
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
                 _isLoading.postValue(false)
             }
         }
-    }
-
-    /**
-     * Преобразовать список [Country] в список [CurrencyItem]
-     * @param country список стран
-     */
-    private fun mapCountryListToCurrencyItemList(country: List<Country>) {
-        val result = country.flatMap { country ->
-            country.currencies.filter { currency ->
-                !currency.code.isNullOrEmpty()
-                        && currency.code != "(none)"
-                        && currencyCodeList.contains(currency.code)
-            }.map { currency ->
-                CurrencyItem(
-                    countryName = country.name,
-                    currencyCode = currency.code,
-                    flagUrl = country.flag
-                )
-            }
-        }
-        currencyList.postValue(result)
     }
 }

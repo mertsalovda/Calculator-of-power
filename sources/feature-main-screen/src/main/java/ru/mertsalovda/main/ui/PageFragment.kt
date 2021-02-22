@@ -27,6 +27,7 @@ class PageFragment : Fragment() {
 
     @Inject
     lateinit var converterMediator: ConverterMediator
+
     @Inject
     lateinit var graphMediator: GraphMediator
 
@@ -40,7 +41,10 @@ class PageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        MainComponent.create((requireActivity().application as AppWithFacade).getFacade()).inject(this)
+        MainComponent.create((requireActivity().application as AppWithFacade).getFacade())
+            .inject(this)
+
+        savedInstanceState?.let { setSavedPage(savedInstanceState) }
 
         // Загрузить модуль
         when (page) {
@@ -49,6 +53,19 @@ class PageFragment : Fragment() {
             Page.SCIENTIFIC_CALCULATOR -> scientificCalculatorMediator.openScientificScreen(R.id.pageContainer, childFragmentManager)
             Page.GRAPH -> graphMediator.openGraphScreen(R.id.pageContainer, childFragmentManager)
         }
+    }
+
+    private fun setSavedPage(savedInstanceState: Bundle) {
+        when (savedInstanceState.getString(PAGE)) {
+            Page.CONVERTER.toString() -> this.page = Page.CONVERTER
+            Page.BASIC_CALCULATOR.toString() -> this.page = Page.BASIC_CALCULATOR
+            Page.SCIENTIFIC_CALCULATOR.toString() -> this.page = Page.SCIENTIFIC_CALCULATOR
+            Page.GRAPH.toString() -> this.page = Page.GRAPH
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(PAGE, page.toString())
     }
 
     private fun setPage(page: Page) {
@@ -63,6 +80,8 @@ class PageFragment : Fragment() {
             fragment.setPage(page)
             return fragment
         }
+
+        private const val PAGE = "PAGE"
 
     }
 }

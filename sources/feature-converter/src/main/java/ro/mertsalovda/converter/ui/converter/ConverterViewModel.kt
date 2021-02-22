@@ -7,41 +7,38 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.navigation.ViewRouter
-import ro.mertsalovda.converter.ui.currency.CurrencyItem
-import ru.mertsalovda.core_api.dto.exchange.ExchangeRate
-import ru.mertsalovda.core_api.network.ExchangeRatesApi
-import javax.inject.Inject
+import ro.mertsalovda.converter.repository.CurrencyConverterRepository
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.ExchangeRate
 import kotlin.math.round
 
-class ConverterViewModel : ViewModel() {
+class ConverterViewModel(
+    private val viewRouter: ViewRouter,
+    private val currencyConverterRepository: CurrencyConverterRepository
+) : ViewModel() {
 
-    @Inject
-    lateinit var exchangeRatesApi: ExchangeRatesApi
-
-    @Inject
-    lateinit var viewRouter: ViewRouter
-
+    /** Преобразуемая единица измерения Value.CONVERTED_VALUE*/
     private val _unit1 = MutableLiveData<String>("0")
     val unit1: LiveData<String> = _unit1
 
+    /** Преобразованная единица измерения Value.RESULT_VALUE */
     private val _unit2 = MutableLiveData<String>("0")
     val unit2: LiveData<String> = _unit2
 
+    /** Текущее выбранное значение */
     private var selectedValue = Value.CONVERTED_VALUE
 
+    /** Представление для преобразуемой единици измерения */
     private val _unitPreview1 = MutableLiveData<CurrencyItem?>(null)
     val unitPreview1: LiveData<CurrencyItem?> = _unitPreview1
 
+    /** Представление для преобразованной единици измерения */
     private val _unitPreview2 = MutableLiveData<CurrencyItem?>(null)
     val unitPreview2: LiveData<CurrencyItem?> = _unitPreview2
 
+    /** Обменный курс валют */
     private val _exchangeRate = MutableLiveData<ExchangeRate?>(null)
-
-    init {
-        ConverterComponent.create().inject(this)
-    }
 
     /** Указать какая величина в фокусе */
     fun setValueFocused(value: Value) {
@@ -65,7 +62,7 @@ class ConverterViewModel : ViewModel() {
 
     /** Удалить последний символ у выбронной единицы измерения */
     private fun deleteLastSymbol(unit: MutableLiveData<String>) {
-        var currentValue = unit.value ?: return
+        val currentValue = unit.value ?: return
         val end = if (currentValue.isEmpty()) 0 else currentValue.length - 1
         val result = if (end == 0) "0" else currentValue.substring(0, end)
         unit.value = result
@@ -104,16 +101,11 @@ class ConverterViewModel : ViewModel() {
         viewModelScope.launch {
             _unitPreview1.value?.currencyCode?.let { code ->
                 try {
-                    val exchangeRate = exchangeRatesApi.getLatestByBaseCurrency(code)
-                    if (exchangeRate.isSuccessful) {
-                        _exchangeRate.postValue(exchangeRate.body())
-                    } else {
-
-                    }
+                    val exchangeRate = currencyConverterRepository.getExchangeRateByBaseCurrency(code)
+                    _exchangeRate.postValue(exchangeRate)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         }
     }

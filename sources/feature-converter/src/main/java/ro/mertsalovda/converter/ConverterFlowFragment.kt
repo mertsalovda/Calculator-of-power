@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.navigation.ViewRouter
+import ru.mertsalovda.core_api.providers.AppProvider
+import ru.mertsalovda.core_api.providers.AppWithFacade
 import javax.inject.Inject
 
 class ConverterFlowFragment : Fragment() {
@@ -22,7 +24,8 @@ class ConverterFlowFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ConverterComponent.create().inject(this)
+        ConverterComponent.create((requireActivity().application as AppWithFacade).getFacade() as AppProvider)
+            .inject(this)
 
         viewRouter.showConverter(CONTAINER_ID, childFragmentManager)
     }

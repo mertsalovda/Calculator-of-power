@@ -12,9 +12,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
+import ro.mertsalovda.converter.di.ConverterComponent
+import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import ru.mertsalovda.core_api.interfaces.IScreenWithTabLayout
+import ru.mertsalovda.core_api.providers.AppProvider
+import ru.mertsalovda.core_api.providers.AppWithFacade
+import javax.inject.Inject
 
 class CurrencyListFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ConverterViewModelFactory
 
     private var onCurrencySelected: ((CurrencyItem) -> Unit)? = null
 
@@ -24,10 +33,17 @@ class CurrencyListFragment : Fragment() {
 
     private lateinit var adapter: CurrencyAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val appProvider =
+            (requireActivity().application as AppWithFacade).getFacade() as AppProvider
+        ConverterComponent.create(appProvider).inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = inflater.inflate(R.layout.fr_currency_list, container, false)
         binding = FrCurrencyListBinding.bind(view)
         return binding.root
@@ -39,11 +55,13 @@ class CurrencyListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(CurrencyListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CurrencyListViewModel::class.java)
+
         adapter = CurrencyAdapter { currencyItem ->
             onCurrencySelected?.let {
                 it.invoke(currencyItem)
-                val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(this.requireView().findFocus().windowToken, 0)
                 parentFragmentManager.popBackStack()
             }
@@ -61,20 +79,21 @@ class CurrencyListFragment : Fragment() {
     private fun setToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val toolbar = (requireActivity() as AppCompatActivity).supportActionBar
-        toolbar?.let{
+        toolbar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = requireContext().getString(R.string.choose_currency)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == android.R.id.home){
+        return if (item.itemId == android.R.id.home) {
             parentFragmentManager.popBackStack()
             true
         } else {
             super.onOptionsItemSelected(item)
         }
     }
+
     private fun setListeners() {
         binding.queryEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
