@@ -17,7 +17,7 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
 import ro.mertsalovda.converter.databinding.KeypadNumericBinding
 import ro.mertsalovda.converter.di.ConverterComponent
-import ru.mertsalovda.core_api.dto.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import ro.mertsalovda.converter.utils.GlideApp
 import ro.mertsalovda.converter.utils.SvgSoftwareLayerSetter
 import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory

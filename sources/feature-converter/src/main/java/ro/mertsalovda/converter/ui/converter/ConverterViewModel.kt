@@ -9,8 +9,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.navigation.ViewRouter
 import ro.mertsalovda.converter.repository.CurrencyConverterRepository
-import ru.mertsalovda.core_api.dto.CurrencyItem
-import ru.mertsalovda.core_api.dto.exchange.ExchangeRate
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.ExchangeRate
 import kotlin.math.round
 
 class ConverterViewModel(

@@ -2,7 +2,7 @@ package ro.mertsalovda.converter.navigation
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
-import ru.mertsalovda.core_api.dto.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 
 interface ViewRouter {
 

@@ -1,4 +1,4 @@
-package ru.mertsalovda.core_api.dto
+package ru.mertsalovda.core_api.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

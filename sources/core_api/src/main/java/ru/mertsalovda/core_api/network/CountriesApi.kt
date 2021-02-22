@@ -2,7 +2,7 @@ package ru.mertsalovda.core_api.network
 
 import retrofit2.Response
 import retrofit2.http.GET
-import ru.mertsalovda.core_api.dto.Country
+import ru.mertsalovda.core_api.dto.CountryDto
 
 interface CountriesApi {
 
@@ -13,5 +13,5 @@ interface CountriesApi {
      * @return списк всех стран.
      */
     @GET("all?fields=name;flag;currencies")
-    suspend fun getAllCountries() : Response<List<Country>>
+    suspend fun getAllCountries() : Response<List<CountryDto>>
 }

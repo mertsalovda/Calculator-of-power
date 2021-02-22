@@ -11,7 +11,7 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.ItemCurrencyBinding
 import ro.mertsalovda.converter.utils.GlideApp
 import ro.mertsalovda.converter.utils.SvgSoftwareLayerSetter
-import ru.mertsalovda.core_api.dto.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 
 class CurrencyAdapter(private val onClickListener: ((CurrencyItem) -> Unit)? = null) :
     RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {

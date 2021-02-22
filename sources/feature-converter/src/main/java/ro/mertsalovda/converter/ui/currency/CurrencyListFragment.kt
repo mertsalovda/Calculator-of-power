@@ -14,7 +14,7 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
 import ro.mertsalovda.converter.di.ConverterComponent
 import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
-import ru.mertsalovda.core_api.dto.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import ru.mertsalovda.core_api.interfaces.IScreenWithTabLayout
 import ru.mertsalovda.core_api.providers.AppProvider
 import ru.mertsalovda.core_api.providers.AppWithFacade

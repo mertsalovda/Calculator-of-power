@@ -3,8 +3,7 @@ package ro.mertsalovda.converter.ui.currency
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.repository.CurrencyRepository
-import ru.mertsalovda.core_api.dto.Country
-import ru.mertsalovda.core_api.dto.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import java.lang.Exception
 
 class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewModel() {
