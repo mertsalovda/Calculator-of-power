@@ -60,7 +60,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_small_8"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_currency" />
+            tools:listitem="@layout/item_value" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

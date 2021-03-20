@@ -3,8 +3,9 @@ package ro.mertsalovda.converter.navigation
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import ro.mertsalovda.converter.ui.converter.ConverterFragment
-import ru.mertsalovda.core_api.database.entity.CurrencyItem
-import ro.mertsalovda.converter.ui.currency.CurrencyListFragment
+import ro.mertsalovda.converter.ui.converter.Mode
+import ro.mertsalovda.converter.ui.currency.ValueListFragment
+import ru.mertsalovda.core_api.database.entity.Value
 import javax.inject.Inject
 
 class ViewRouterImpl @Inject constructor() : ViewRouter {
@@ -17,16 +18,17 @@ class ViewRouterImpl @Inject constructor() : ViewRouter {
 
     override fun showCurrencyList(
         @IdRes containerId: Int,
+        mode: Mode,
         childFragmentManager: FragmentManager,
-        onCurrencySelected: ((CurrencyItem) -> Unit)?
+        onValueSelected: ((Value) -> Unit)?
     ) {
         childFragmentManager.beginTransaction()
             .add(
                 containerId,
-                CurrencyListFragment.newInstance(onCurrencySelected),
-                CurrencyListFragment::class.simpleName
+                ValueListFragment.newInstance(mode, onValueSelected),
+                ValueListFragment::class.simpleName
             )
-            .addToBackStack(CurrencyListFragment::class.simpleName)
+            .addToBackStack(ValueListFragment::class.simpleName)
             .commit()
     }
 }

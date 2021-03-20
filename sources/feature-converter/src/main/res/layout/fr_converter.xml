@@ -211,37 +211,41 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/groupConverterUnit"
             style="@style/ChoiceChipsGroupStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/spacing_small_8"
             android:paddingEnd="@dimen/spacing_small_8">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/currencyChip"
                 style="@style/ChoiceChipsStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="@string/currency" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/lengthChip"
                 style="@style/ChoiceChipsStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/length" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/weightChip"
                 style="@style/ChoiceChipsStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weight" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/speedChip"
                 style="@style/ChoiceChipsStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/speed" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/areaChip"
                 style="@style/ChoiceChipsStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
