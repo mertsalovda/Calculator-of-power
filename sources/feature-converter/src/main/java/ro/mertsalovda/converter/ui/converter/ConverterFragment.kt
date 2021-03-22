@@ -1,9 +1,7 @@
 package ro.mertsalovda.converter.ui.converter
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.drawable.PictureDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import androidx.fragment.app.Fragment
@@ -178,12 +176,17 @@ class ConverterFragment : Fragment() {
             ConverterValue.CONVERTED_VALUE -> {
                 setImage(binding.iconUnit1, valueItem)
                 binding.titleUnit1.text = valueItem.code
-                viewModel.loadExchangeRateForBaseCurrency()
+                if (valueItem is Value.Currency) {
+                    viewModel.loadExchangeRateForBaseCurrency()
+                }
             }
             ConverterValue.RESULT_VALUE -> {
                 setImage(binding.iconUnit2, valueItem)
                 binding.titleUnit2.text = valueItem.code
             }
+        }
+        if (valueItem !is Value.Currency) {
+            viewModel.loadConversionFactor()
         }
     }
 

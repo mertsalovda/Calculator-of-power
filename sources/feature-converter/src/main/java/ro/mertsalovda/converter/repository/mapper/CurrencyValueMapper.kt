@@ -16,7 +16,8 @@ class CurrencyValueMapper @Inject constructor() {
         return Value.Currency(
             currencyItem.countryName,
             currencyItem.currencyCode,
-            currencyItem.flagUrl
+            currencyItem.flagUrl,
+            ""
         )
     }
 }

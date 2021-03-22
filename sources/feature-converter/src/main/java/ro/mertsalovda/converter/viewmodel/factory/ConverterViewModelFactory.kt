@@ -32,7 +32,8 @@ class ConverterViewModelFactory @Inject constructor(
         return when (modelClass) {
             ConverterViewModel::class.java -> ConverterViewModel(
                 viewRouter,
-                currencyConverterRepository
+                currencyConverterRepository,
+                physicalValueRepository
             ) as T
             ValueListViewModel::class.java -> ValueListViewModel(
                 currencyRepository,

@@ -9,13 +9,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.navigation.ViewRouter
 import ro.mertsalovda.converter.repository.CurrencyConverterRepository
+import ro.mertsalovda.converter.repository.PhysicalValueRepository
 import ru.mertsalovda.core_api.database.entity.ExchangeRate
 import ru.mertsalovda.core_api.database.entity.Value
 import kotlin.math.round
 
 class ConverterViewModel(
     private val viewRouter: ViewRouter,
-    private val currencyConverterRepository: CurrencyConverterRepository
+    private val currencyConverterRepository: CurrencyConverterRepository,
+    private val physicalValueRepository: PhysicalValueRepository,
 ) : ViewModel() {
 
     /** Режим конвертора. По умолчанию обмен валют */
@@ -42,6 +44,9 @@ class ConverterViewModel(
 
     /** Обменный курс валют */
     private var exchangeRate: ExchangeRate? = null
+
+    /** Коэффициент преобразования физической величины */
+    private var conversionFactor: Float = 0f
 
     /** Указать какая величина в фокусе */
     fun setValueFocused(converterValue: ConverterValue) {
@@ -114,6 +119,20 @@ class ConverterViewModel(
         }
     }
 
+    /** Загрузить коэффициент преобразования */
+    fun loadConversionFactor() {
+        viewModelScope.launch {
+            val fromValue = 1f
+            val fromUnit = unitPreview1.value?.unit ?: return@launch
+            val toUnit = unitPreview2.value?.unit ?: return@launch
+            try {
+                conversionFactor = physicalValueRepository.convert(fromValue, fromUnit, toUnit) ?: 0f
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
     /**
      * Рассчитать конвертацию
      *
@@ -148,20 +167,26 @@ class ConverterViewModel(
     private fun getRate(targetCode: String?): Double {
         return when(mode) {
             Mode.CURRENCY -> exchangeRate?.rates?.get(targetCode) ?: 0.0
-            else -> 0.0
+            else -> conversionFactor.toDouble()
         }
     }
 
+    /**
+     * Установить режим конвертора
+     * @param mode  режим конвертора [Mode]
+     */
     fun setMode(mode: Mode) {
         clearConverterValue()
         this.mode = mode
     }
 
+    /** Очистить данные */
     private fun clearConverterValue() {
         _unitPreview1.postValue(null)
         _unitPreview2.postValue(null)
         _unit1.postValue("0")
         _unit2.postValue("0")
+        conversionFactor = 0f
     }
 }
 
@@ -169,6 +194,9 @@ enum class ConverterValue {
     CONVERTED_VALUE, RESULT_VALUE
 }
 
+/**
+ * Режимы конвертора
+ */
 enum class Mode {
     CURRENCY, LENGTH, WEIGHT, SPEED, AREA,
 }
