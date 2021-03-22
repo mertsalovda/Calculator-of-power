@@ -3,9 +3,7 @@ package ro.mertsalovda.converter.di
 import dagger.Component
 import ro.mertsalovda.converter.ConverterFlowFragment
 import ro.mertsalovda.converter.ui.converter.ConverterFragment
-import ro.mertsalovda.converter.ui.converter.ConverterViewModel
-import ro.mertsalovda.converter.ui.currency.CurrencyListFragment
-import ro.mertsalovda.converter.ui.currency.CurrencyListViewModel
+import ro.mertsalovda.converter.ui.currency.ValueListFragment
 import ru.mertsalovda.core.CoreProvidersFactory
 import ru.mertsalovda.core_api.database.DatabaseProvider
 import ru.mertsalovda.core_api.providers.AppProvider
@@ -31,5 +29,5 @@ interface ConverterComponent {
 
     fun inject(converterFlowFragment: ConverterFlowFragment)
     fun inject(converterFragment: ConverterFragment)
-    fun inject(currencyListFragment: CurrencyListFragment)
+    fun inject(valueListFragment: ValueListFragment)
 }

@@ -1,5 +1,6 @@
 package ru.mertsalovda.core_api.providers
 
+import ru.mertsalovda.core_api.network.ConverterApi
 import ru.mertsalovda.core_api.network.CountriesApi
 import ru.mertsalovda.core_api.network.ExchangeRatesApi
 import ru.mertsalovda.core_api.network.NewtonApi
@@ -11,4 +12,6 @@ interface NetworkProvider {
     fun provideNewtonApi(): NewtonApi
 
     fun provideExchangeRatesApi(): ExchangeRatesApi
+
+    fun provideConverterApi(): ConverterApi
 }

@@ -107,14 +107,19 @@
     </style>
 
     <style name="ChoiceChipsStyle" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="android:backgroundTint">@color/swatch_9</item>
+        <item name="chipBackgroundColor">@drawable/chip_selector</item>
         <item name="android:textColor">@color/swatch_7</item>
         <item name="chipStrokeColor">@color/swatch_6</item>
         <item name="chipStrokeWidth">1dp</item>
+        <item name="android:checkable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
     <style name="ChoiceChipsGroupStyle" parent="Widget.MaterialComponents.ChipGroup">
         <item name="chipSpacingHorizontal">@dimen/spacing_small_8</item>
         <item name="singleLine">true</item>
+        <item name="singleSelection">true</item>
+        <item name="selectionRequired">true</item>
     </style>
 </resources>

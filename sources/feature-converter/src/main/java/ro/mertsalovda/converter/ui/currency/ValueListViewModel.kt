@@ -3,12 +3,17 @@ package ro.mertsalovda.converter.ui.currency
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.repository.CurrencyRepository
-import ru.mertsalovda.core_api.database.entity.CurrencyItem
+import ro.mertsalovda.converter.repository.PhysicalValueRepository
+import ro.mertsalovda.converter.ui.converter.Mode
+import ru.mertsalovda.core_api.database.entity.Value
 import java.lang.Exception
 
-class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewModel() {
+class ValueListViewModel(
+    private val repository: CurrencyRepository,
+    private val physicalValueRepository: PhysicalValueRepository,
+    ) : ViewModel() {
 
-    private val currencyList = MutableLiveData<List<CurrencyItem>>(listOf())
+    private val valueList = MutableLiveData<List<Value>>(listOf())
 
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -23,21 +28,21 @@ class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewMo
      * Получить список валют соответствующих поисковому запросу query
      * @return список валют удовлетворяющих запрос query
      */
-    fun getCountriesByQuery(): LiveData<List<CurrencyItem>> {
-        val result = MediatorLiveData<List<CurrencyItem>>()
+    fun getCountriesByQuery(): LiveData<List<Value>> {
+        val result = MediatorLiveData<List<Value>>()
 
         // Функция в соответствии с запросом query
         val filterFun = {
             val queryStr = query.value
-            val currency = currencyList.value
+            val currency = valueList.value
 
             result.value = if (queryStr.isNullOrEmpty()) currency
             else currency!!.filter {
-                (it.countryName + it.currencyCode).contains(queryStr, true)
+                (it.name + it.code).contains(queryStr, true)
             }
         }
         // Объединение LiveData в MediatorLiveData
-        result.addSource(currencyList) { filterFun.invoke() }
+        result.addSource(valueList) { filterFun.invoke() }
         result.addSource(query) { filterFun.invoke() }
 
         return result
@@ -53,7 +58,25 @@ class CurrencyListViewModel(private val repository: CurrencyRepository) : ViewMo
             _isLoading.postValue(true)
             try {
                 val result = repository.getCurrencyItemList()
-                currencyList.postValue(result)
+                valueList.postValue(result)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    /**
+     * Загрузить список физических величин
+     * @param mode  режим конвертора [Mode]
+     */
+    fun loadPhysicalValueList(mode: Mode) {
+        viewModelScope.launch {
+            _isLoading.postValue(true)
+            try {
+                val result = physicalValueRepository.getPhysicalValueByMode(mode)
+                valueList.postValue(result)
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {

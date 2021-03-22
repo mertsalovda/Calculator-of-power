@@ -2,8 +2,10 @@ package ro.mertsalovda.converter.repository
 
 import kotlinx.coroutines.*
 import ro.mertsalovda.converter.repository.mapper.CurrencyMapper
+import ro.mertsalovda.converter.repository.mapper.CurrencyValueMapper
 import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import ru.mertsalovda.core_api.database.dao.CurrencyDao
+import ru.mertsalovda.core_api.database.entity.Value
 import ru.mertsalovda.core_api.network.CountriesApi
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,6 +22,7 @@ class CurrencyRepository @Inject constructor(
     private val countriesApi: CountriesApi,
     private val currencyDao: CurrencyDao,
     private val currencyMapper: CurrencyMapper,
+    private val valueMapper: CurrencyValueMapper
     ) : CoroutineScope {
 
     private val job = Job()
@@ -42,13 +45,17 @@ class CurrencyRepository @Inject constructor(
         }
 
     /** Загрузить список валюты из БД*/
-    suspend fun getCurrencyItemList(): List<CurrencyItem> =
+    suspend fun getCurrencyItemList(): List<Value.Currency> =
         withContext(coroutineContext) {
             val list = currencyDao.getAllCurrencyItems()
             if (list.isNotEmpty()) {
-                list
+                list.map { currencyItem ->
+                    valueMapper.map(currencyItem)
+                }
             } else {
-                getCurrencyListFromNetwork()
+                getCurrencyListFromNetwork().map { currencyItem ->
+                    valueMapper.map(currencyItem)
+                }
             }
         }
 }

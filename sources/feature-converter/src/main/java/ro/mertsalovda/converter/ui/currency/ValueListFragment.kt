@@ -11,27 +11,30 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import ro.mertsalovda.converter.R
-import ro.mertsalovda.converter.databinding.FrCurrencyListBinding
+import ro.mertsalovda.converter.databinding.FrValueListBinding
 import ro.mertsalovda.converter.di.ConverterComponent
+import ro.mertsalovda.converter.ui.converter.Mode
 import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
-import ru.mertsalovda.core_api.database.entity.CurrencyItem
+import ru.mertsalovda.core_api.database.entity.Value
 import ru.mertsalovda.core_api.interfaces.IScreenWithTabLayout
 import ru.mertsalovda.core_api.providers.AppProvider
 import ru.mertsalovda.core_api.providers.AppWithFacade
 import javax.inject.Inject
 
-class CurrencyListFragment : Fragment() {
+class ValueListFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ConverterViewModelFactory
 
-    private var onCurrencySelected: ((CurrencyItem) -> Unit)? = null
+    private var onCurrencySelected: ((Value) -> Unit)? = null
 
-    private lateinit var binding: FrCurrencyListBinding
+    private lateinit var mode: Mode
 
-    private lateinit var viewModel: CurrencyListViewModel
+    private lateinit var binding: FrValueListBinding
 
-    private lateinit var adapter: CurrencyAdapter
+    private lateinit var viewModel: ValueListViewModel
+
+    private lateinit var adapter: ValueAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +47,8 @@ class CurrencyListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fr_currency_list, container, false)
-        binding = FrCurrencyListBinding.bind(view)
+        val view = inflater.inflate(R.layout.fr_value_list, container, false)
+        binding = FrValueListBinding.bind(view)
         return binding.root
     }
 
@@ -55,9 +58,9 @@ class CurrencyListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CurrencyListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ValueListViewModel::class.java)
 
-        adapter = CurrencyAdapter { currencyItem ->
+        adapter = ValueAdapter { currencyItem ->
             onCurrencySelected?.let {
                 it.invoke(currencyItem)
                 val imm =
@@ -73,7 +76,10 @@ class CurrencyListFragment : Fragment() {
         setToolbar()
         setObservers()
         setListeners()
-        viewModel.loadCurrencyList()
+        if (mode == Mode.CURRENCY)
+            viewModel.loadCurrencyList()
+        else
+            viewModel.loadPhysicalValueList(mode)
     }
 
     private fun setToolbar() {
@@ -147,14 +153,15 @@ class CurrencyListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(onCurrencySelected: ((CurrencyItem) -> Unit)?): CurrencyListFragment {
-            val fragment = CurrencyListFragment()
-            fragment.setCurrencySelectedListener(onCurrencySelected)
+        fun newInstance(mode: Mode, onCurrencySelected: ((Value) -> Unit)?): ValueListFragment {
+            val fragment = ValueListFragment()
+            fragment.setCurrencySelectedListener(mode, onCurrencySelected)
             return fragment
         }
     }
 
-    fun setCurrencySelectedListener(onCurrencySelected: ((CurrencyItem) -> Unit)?) {
+    fun setCurrencySelectedListener(mode: Mode, onCurrencySelected: ((Value) -> Unit)?) {
+        this.mode = mode
         this.onCurrencySelected = onCurrencySelected
     }
 

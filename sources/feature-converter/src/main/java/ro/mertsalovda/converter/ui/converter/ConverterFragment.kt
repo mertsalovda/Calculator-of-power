@@ -1,5 +1,6 @@
 package ro.mertsalovda.converter.ui.converter
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.text.InputType
@@ -17,10 +18,10 @@ import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
 import ro.mertsalovda.converter.databinding.KeypadNumericBinding
 import ro.mertsalovda.converter.di.ConverterComponent
-import ru.mertsalovda.core_api.database.entity.CurrencyItem
 import ro.mertsalovda.converter.utils.GlideApp
 import ro.mertsalovda.converter.utils.SvgSoftwareLayerSetter
 import ro.mertsalovda.converter.viewmodel.factory.ConverterViewModelFactory
+import ru.mertsalovda.core_api.database.entity.Value
 import ru.mertsalovda.core_api.providers.AppProvider
 import ru.mertsalovda.core_api.providers.AppWithFacade
 import javax.inject.Inject
@@ -110,68 +111,113 @@ class ConverterFragment : Fragment() {
         binding.currencySelectBtn1.setOnClickListener(onCurrencyClickListener)
         binding.currencySelectBtn2.setOnClickListener(onCurrencyClickListener)
 
-        val onKeypadClickListener = { view: View ->
-            viewModel.clickKeypad(view.tag.toString())
-        }
         for (key in keypadMap.keys) {
-            keypadMap[key]?.let { it.setOnClickListener(onKeypadClickListener) }
+            keypadMap[key]?.setOnClickListener { view: View ->
+                viewModel.clickKeypad(view.tag.toString())
+            }
+        }
+
+        binding.currencyChip.isChecked = true
+
+        binding.groupConverterUnit.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.currencyChip -> viewModel.setMode(Mode.CURRENCY)
+                R.id.lengthChip -> viewModel.setMode(Mode.LENGTH)
+                R.id.weightChip -> viewModel.setMode(Mode.WEIGHT)
+                R.id.speedChip -> viewModel.setMode(Mode.SPEED)
+                R.id.areaChip -> viewModel.setMode(Mode.AREA)
+            }
         }
     }
 
     private fun setObservers() {
-        viewModel.unitPreview1.observe(viewLifecycleOwner) { currencyItem ->
-            currencyItem?.let { updatePreview(Value.CONVERTED_VALUE, it) }
+        viewModel.unitPreview1.observe(viewLifecycleOwner) { valueItem ->
+            valueItem?.let { updatePreview(ConverterValue.CONVERTED_VALUE, it) }
+                ?: clearPreview(ConverterValue.CONVERTED_VALUE)
         }
-        viewModel.unitPreview2.observe(viewLifecycleOwner) { currencyItem ->
-            currencyItem?.let { updatePreview(Value.RESULT_VALUE, it) }
+        viewModel.unitPreview2.observe(viewLifecycleOwner) { valueItem ->
+            valueItem?.let { updatePreview(ConverterValue.RESULT_VALUE, it) }
+                ?: clearPreview(ConverterValue.RESULT_VALUE)
         }
-        viewModel.unit1.observe(viewLifecycleOwner) {
-            (binding.etUnit1 as TextView).text = it
+        viewModel.unit1.observe(viewLifecycleOwner) { value ->
+            (binding.etUnit1 as TextView).text = value
         }
-        viewModel.unit2.observe(viewLifecycleOwner) {
-            (binding.etUnit2 as TextView).text = it
+        viewModel.unit2.observe(viewLifecycleOwner) { value ->
+            (binding.etUnit2 as TextView).text = value
+        }
+    }
+
+    /**
+     * Очистить отображение конвертируемой величины
+     * @param converterValue    фокус на ConverterValue
+     */
+    @SuppressLint("SetTextI18n")
+    private fun clearPreview(converterValue: ConverterValue) {
+        when (converterValue) {
+            ConverterValue.CONVERTED_VALUE -> {
+                setImage(binding.iconUnit1, null)
+                binding.titleUnit1.text = "NONE"
+                viewModel.loadExchangeRateForBaseCurrency()
+            }
+            ConverterValue.RESULT_VALUE -> {
+                setImage(binding.iconUnit2, null)
+                binding.titleUnit2.text = "NONE"
+            }
         }
     }
 
     /**
      * Обновляет отображение конвертируемой величины
-     * @param value фокус на Value
-     * @param currencyItem данные овалюте
+     * @param converterValue    фокус на ConverterValue
+     * @param valueItem         данные конвертируемой величине
      */
-    private fun updatePreview(value: Value, currencyItem: CurrencyItem) {
-        when (value) {
-            Value.CONVERTED_VALUE -> {
-                setImage(binding.iconUnit1, currencyItem.flagUrl)
-                binding.titleUnit1.text = currencyItem.currencyCode
-                viewModel.loadExchangeRateForBaseCurrency()
+    private fun updatePreview(converterValue: ConverterValue, valueItem: Value) {
+        when (converterValue) {
+            ConverterValue.CONVERTED_VALUE -> {
+                setImage(binding.iconUnit1, valueItem)
+                binding.titleUnit1.text = valueItem.code
+                if (valueItem is Value.Currency) {
+                    viewModel.loadExchangeRateForBaseCurrency()
+                }
             }
-            Value.RESULT_VALUE -> {
-                setImage(binding.iconUnit2, currencyItem.flagUrl)
-                binding.titleUnit2.text = currencyItem.currencyCode
+            ConverterValue.RESULT_VALUE -> {
+                setImage(binding.iconUnit2, valueItem)
+                binding.titleUnit2.text = valueItem.code
             }
+        }
+        if (valueItem !is Value.Currency) {
+            viewModel.loadConversionFactor()
         }
     }
 
-    /** Получить [Value] к которому относится view */
-    private fun getSelectedValue(view: View): Value? = when (view.id) {
-        R.id.etUnit1, R.id.unitContainer1, R.id.currencySelectBtn1 -> Value.CONVERTED_VALUE
-        R.id.etUnit2, R.id.unitContainer2, R.id.currencySelectBtn2 -> Value.RESULT_VALUE
+    /** Получить [ConverterValue] к которому относится view */
+    private fun getSelectedValue(view: View): ConverterValue? = when (view.id) {
+        R.id.etUnit1, R.id.unitContainer1, R.id.currencySelectBtn1 -> ConverterValue.CONVERTED_VALUE
+        R.id.etUnit2, R.id.unitContainer2, R.id.currencySelectBtn2 -> ConverterValue.RESULT_VALUE
         else -> null
     }
 
     /**
      * Установить изображение в ImageView
-     * @param url ссылка на изображение
+     * @param item ссылка на изображение
      */
-    private fun setImage(imageView: ImageView, url: String?) {
-        // Загружаю изображение .svg
-        GlideApp.with(imageView.context)
-            .`as`(PictureDrawable::class.java)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .error(R.drawable.ripple_bg_transparent)
-            .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .listener(SvgSoftwareLayerSetter())
-            .into(imageView)
+    private fun setImage(imageView: ImageView, item: Value?) {
+        if (item is Value.Currency) {
+            // Загружаю изображение .svg
+            GlideApp.with(imageView.context.applicationContext)
+                .`as`(PictureDrawable::class.java)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.ripple_bg_transparent)
+                .load(item.image)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .listener(SvgSoftwareLayerSetter())
+                .into(imageView)
+        } else {
+            GlideApp.with(imageView.context.applicationContext)
+                .load(item?.image?.toIntOrNull())
+                .error(R.drawable.ic_launcher_foreground)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(imageView)
+        }
     }
 }

@@ -2,7 +2,8 @@ package ro.mertsalovda.converter.navigation
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
-import ru.mertsalovda.core_api.database.entity.CurrencyItem
+import ro.mertsalovda.converter.ui.converter.Mode
+import ru.mertsalovda.core_api.database.entity.Value
 
 interface ViewRouter {
 
@@ -10,12 +11,13 @@ interface ViewRouter {
     fun showConverter(@IdRes containerId: Int, childFragmentManager: FragmentManager)
 
     /**
-     * Показать экран выбора валюты
-     * @param onCurrencySelected    callback из которого можно получить выбранную валюту.
+     * Показать экран выбора единиц измерения
+     * @param onValueSelected    callback из которого можно получить выбранную единицу измерения.
      */
     fun showCurrencyList(
         @IdRes containerId: Int,
+        mode: Mode,
         childFragmentManager: FragmentManager,
-        onCurrencySelected: ((CurrencyItem) -> Unit)?
+        onValueSelected: ((Value) -> Unit)?
     )
 }
