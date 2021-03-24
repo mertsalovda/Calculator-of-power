@@ -1,4 +1,4 @@
-package ro.mertsalovda.converter.ui.currency
+package ro.mertsalovda.converter.ui.values
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.PictureDrawable
@@ -68,7 +68,7 @@ class ValueAdapter(private val onClickListener: ((Value) -> Unit)? = null) :
                 GlideApp.with(itemView.context.applicationContext)
                     .`as`(PictureDrawable::class.java)
                     .transition(withCrossFade())
-                    .error(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_adaptation)
                     .load(item.image)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .listener(SvgSoftwareLayerSetter())
@@ -76,7 +76,7 @@ class ValueAdapter(private val onClickListener: ((Value) -> Unit)? = null) :
             } else {
                 GlideApp.with(itemView.context.applicationContext)
                     .load(item.image?.toIntOrNull())
-                    .error(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_adaptation)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(binding.imageView)
             }

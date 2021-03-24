@@ -206,7 +206,7 @@ class ConverterFragment : Fragment() {
             GlideApp.with(imageView.context.applicationContext)
                 .`as`(PictureDrawable::class.java)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.ripple_bg_transparent)
+                .error(R.drawable.ic_adaptation)
                 .load(item.image)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .listener(SvgSoftwareLayerSetter())
@@ -214,7 +214,7 @@ class ConverterFragment : Fragment() {
         } else {
             GlideApp.with(imageView.context.applicationContext)
                 .load(item?.image?.toIntOrNull())
-                .error(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_adaptation)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView)
         }

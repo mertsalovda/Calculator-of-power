@@ -1,4 +1,4 @@
-package ro.mertsalovda.converter.ui.currency
+package ro.mertsalovda.converter.ui.values
 
 import android.content.Context
 import android.os.Bundle

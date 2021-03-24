@@ -3,7 +3,7 @@ package ro.mertsalovda.converter.di
 import dagger.Component
 import ro.mertsalovda.converter.ConverterFlowFragment
 import ro.mertsalovda.converter.ui.converter.ConverterFragment
-import ro.mertsalovda.converter.ui.currency.ValueListFragment
+import ro.mertsalovda.converter.ui.values.ValueListFragment
 import ru.mertsalovda.core.CoreProvidersFactory
 import ru.mertsalovda.core_api.database.DatabaseProvider
 import ru.mertsalovda.core_api.providers.AppProvider

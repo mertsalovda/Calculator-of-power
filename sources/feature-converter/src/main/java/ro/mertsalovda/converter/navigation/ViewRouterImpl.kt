@@ -4,7 +4,7 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import ro.mertsalovda.converter.ui.converter.ConverterFragment
 import ro.mertsalovda.converter.ui.converter.Mode
-import ro.mertsalovda.converter.ui.currency.ValueListFragment
+import ro.mertsalovda.converter.ui.values.ValueListFragment
 import ru.mertsalovda.core_api.database.entity.Value
 import javax.inject.Inject
 

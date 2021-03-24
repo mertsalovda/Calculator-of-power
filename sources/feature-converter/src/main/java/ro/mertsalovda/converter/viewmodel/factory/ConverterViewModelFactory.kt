@@ -7,7 +7,7 @@ import ro.mertsalovda.converter.repository.CurrencyConverterRepository
 import ro.mertsalovda.converter.repository.CurrencyRepository
 import ro.mertsalovda.converter.repository.PhysicalValueRepository
 import ro.mertsalovda.converter.ui.converter.ConverterViewModel
-import ro.mertsalovda.converter.ui.currency.ValueListViewModel
+import ro.mertsalovda.converter.ui.values.ValueListViewModel
 import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
