@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+
+apply from: "$project.rootDir/scripts/deps_versions.gradle"
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation coreKtx
+    implementation appcompat
+
+    implementation navigationKtx['fragment-ktx']
+    implementation navigationKtx['ui-ktx']
+    implementation lifecycleExtensions
+    implementation legacySupportV4
+    implementation lifecycleViewModelKtx
+
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation androidTest['junit']
+    androidTestImplementation androidTest['runner']
+    androidTestImplementation androidTest['espresso-core']
+
+    implementation project(':sources:assets')
+    implementation project(':sources:core')
+
+    // View
+    implementation material
+    implementation constraintlayout
+    implementation circleimageview
+
+    // Dagger 2
+    implementation dagger
+    kapt daggerCompiler
+
+    // Network
+    implementation retrofit['retrofit']
+
+    // Glide
+    implementation glide
+    kapt glideCompiler
+    implementation androidsvg
+}

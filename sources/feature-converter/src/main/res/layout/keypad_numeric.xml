@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber7"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="7"
+        android:tag="7"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber4"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber8"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="8"
+        android:tag="8"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber5"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber7"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber9"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="9"
+        android:tag="9"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber4"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:text="4"
+        android:tag="4"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber1"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber7" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber5"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="5"
+        android:tag="5"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber2"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber4"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber8" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber6"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="6"
+        android:tag="6"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber5"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber9" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber1"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="1"
+        android:tag="1"
+        app:layout_constraintBottom_toTopOf="@+id/btnPoint"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber2"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="2"
+        android:tag="2"
+        app:layout_constraintBottom_toTopOf="@+id/btnNumber0"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber1"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber3"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="3"
+        android:tag="3"
+        app:layout_constraintBottom_toTopOf="@+id/btnBackspace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber2"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber6" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPoint"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="."
+        android:tag="."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnNumber0"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNumber0"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:text="0"
+        android:tag="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnBackspace"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPoint"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber2" />
+
+    <ImageButton
+        android:id="@+id/btnBackspace"
+        style="@style/KeypadButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_backspace"
+        android:text=""
+        android:tag="backspace"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnNumber0"
+        app:layout_constraintTop_toBottomOf="@+id/btnNumber3" />
+
+</merge>
