@@ -49,8 +49,6 @@ class PageFragment : Fragment() {
         // Загрузить модуль
         when (page) {
             Page.CONVERTER -> converterMediator.openConverterScreen(R.id.pageContainer, childFragmentManager)
-            Page.BASIC_CALCULATOR -> basicCalculatorMediator.openBasicScreen(R.id.pageContainer, childFragmentManager)
-            Page.SCIENTIFIC_CALCULATOR -> scientificCalculatorMediator.openScientificScreen(R.id.pageContainer, childFragmentManager)
             Page.GRAPH -> graphMediator.openGraphScreen(R.id.pageContainer, childFragmentManager)
         }
     }
@@ -58,8 +56,6 @@ class PageFragment : Fragment() {
     private fun setSavedPage(savedInstanceState: Bundle) {
         when (savedInstanceState.getString(PAGE)) {
             Page.CONVERTER.toString() -> this.page = Page.CONVERTER
-            Page.BASIC_CALCULATOR.toString() -> this.page = Page.BASIC_CALCULATOR
-            Page.SCIENTIFIC_CALCULATOR.toString() -> this.page = Page.SCIENTIFIC_CALCULATOR
             Page.GRAPH.toString() -> this.page = Page.GRAPH
         }
     }

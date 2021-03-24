@@ -54,8 +54,7 @@ class ConverterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fr_converter, container, false)
-        binding = FrConverterBinding.bind(view)
+        binding = FrConverterBinding.inflate(inflater)
         keypad = KeypadNumericBinding.bind(binding.root)
         return binding.root
     }

@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity(), IScreenWithTabLayout {
     private lateinit var tabLayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Переключение на тему приложения, чтобы не отображался Splash Screen
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ac_main)
 
