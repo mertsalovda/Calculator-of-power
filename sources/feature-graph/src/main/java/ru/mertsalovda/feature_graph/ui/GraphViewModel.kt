@@ -23,6 +23,9 @@ class GraphViewModel : ViewModel() {
     private val _graphItems = MutableLiveData<MutableList<ListItem>>(
         mutableListOf(
             // TODO delete test data
+            GraphItem(Color.CYAN, "x^2"),
+            GraphItem(Color.YELLOW, "sin(x)"),
+            GraphItem(Color.GREEN, "2/x"),
             GraphItem(Color.RED, "sqrt((16-x^2))"),
             GraphItem(Color.RED, "-sqrt((16-x^2))"),
             GraphItem(Color.RED, "4-2*x"),
@@ -30,9 +33,6 @@ class GraphViewModel : ViewModel() {
             GraphItem(Color.RED, "0*x+2"),
             GraphItem(Color.RED, "(2/3)*(x-5)+3"),
             GraphItem(Color.RED, "((-7)/10)*(x+5)+3"),
-            GraphItem(Color.CYAN, "x^2"),
-            GraphItem(Color.YELLOW, "sin(x)"),
-            GraphItem(Color.GREEN, "2/x"),
         )
     )
     val graphItems: LiveData<MutableList<ListItem>> = _graphItems
