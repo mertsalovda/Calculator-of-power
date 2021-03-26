@@ -1,6 +1,5 @@
-package ru.mertsalovda.feature_graph.view.dialog
+package ru.mertsalovda.feature_graph.ui.dialog
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.DialogFragment
 import ru.mertsalovda.feature_graph.R
 import ru.mertsalovda.feature_graph.databinding.FrNewGraphBinding
-import ru.mertsalovda.feature_graph.view.GraphItem
-import ru.mertsalovda.feature_graph.view.graph.Graph
+import ru.mertsalovda.feature_graph.ui.GraphItem
 import ru.mertsalovda.feature_graph.view.graph.GraphUtil
 
 /** Фрагмент для создания нового графика */

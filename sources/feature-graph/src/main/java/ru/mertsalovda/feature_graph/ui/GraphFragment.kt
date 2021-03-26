@@ -1,4 +1,4 @@
-package ru.mertsalovda.feature_graph.view
+package ru.mertsalovda.feature_graph.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

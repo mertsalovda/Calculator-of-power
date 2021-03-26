@@ -1,9 +1,8 @@
 package ru.mertsalovda.feature_graph.navigaton
 
 import androidx.fragment.app.FragmentManager
-import ru.mertsalovda.feature_graph.view.GraphItem
-import ru.mertsalovda.feature_graph.view.dialog.NewGraphFragment
-import ru.mertsalovda.feature_graph.view.graph.Graph
+import ru.mertsalovda.feature_graph.ui.GraphItem
+import ru.mertsalovda.feature_graph.ui.dialog.NewGraphFragment
 import javax.inject.Inject
 
 class ViewRouterImpl @Inject constructor() : ViewRouter {

@@ -1,4 +1,4 @@
-package ru.mertsalovda.feature_graph.view
+package ru.mertsalovda.feature_graph.ui
 
 import android.view.LayoutInflater
 import android.view.View

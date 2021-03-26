@@ -1,8 +1,7 @@
 package ru.mertsalovda.feature_graph.navigaton
 
 import androidx.fragment.app.FragmentManager
-import ru.mertsalovda.feature_graph.view.GraphItem
-import ru.mertsalovda.feature_graph.view.graph.Graph
+import ru.mertsalovda.feature_graph.ui.GraphItem
 
 interface ViewRouter {
 
