@@ -79,13 +79,17 @@ class GraphViewModel : ViewModel() {
 
     /** Нарисовать все графики у которых isVisible = true*/
     fun drawAllGraph() {
-        val graphItems = graphItems.value as List<GraphItem>
-        val graphList = mutableListOf<Graph>()
-        for (graphItem in graphItems.filter { it.isVisible }) {
-            val points =
-                GraphUtil.getPoints(-10.00f, 10.00f, 0.10f, graphItem.expression, calculator)
-            graphList.add(Graph(graphItem.expression, points, graphItem.markerColor))
+        try {
+            val graphItems = graphItems.value as List<GraphItem>
+            val graphList = mutableListOf<Graph>()
+            for (graphItem in graphItems.filter { it.isVisible }) {
+                val points =
+                    GraphUtil.getPoints(-10.00f, 10.00f, 0.10f, graphItem.expression, calculator)
+                graphList.add(Graph(graphItem.expression, points, graphItem.markerColor))
+            }
+            _graphs.postValue(graphList)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        _graphs.postValue(graphList)
     }
 }
