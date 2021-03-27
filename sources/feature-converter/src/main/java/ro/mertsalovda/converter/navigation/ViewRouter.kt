@@ -12,12 +12,15 @@ interface ViewRouter {
 
     /**
      * Показать экран выбора единиц измерения
-     * @param onValueSelected    callback из которого можно получить выбранную единицу измерения.
+     * @param mode              режим конвертора.
+     * @param codeFilter        код величины, которую надо исключить из списка.
+     * @param onValueSelected   callback из которого можно получить выбранную единицу измерения.
      */
-    fun showCurrencyList(
+    fun showValueList(
         @IdRes containerId: Int,
         mode: Mode,
         childFragmentManager: FragmentManager,
+        codeFilter: String? = null,
         onValueSelected: ((Value) -> Unit)?
     )
 }

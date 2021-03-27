@@ -1,5 +1,6 @@
 package ro.mertsalovda.converter.ui.values
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ro.mertsalovda.converter.repository.CurrencyRepository
@@ -7,11 +8,12 @@ import ro.mertsalovda.converter.repository.PhysicalValueRepository
 import ro.mertsalovda.converter.ui.converter.Mode
 import ru.mertsalovda.core_api.database.entity.Value
 import java.lang.Exception
+import javax.inject.Inject
 
-class ValueListViewModel(
+class ValueListViewModel @Inject constructor(
     private val repository: CurrencyRepository,
     private val physicalValueRepository: PhysicalValueRepository,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val valueList = MutableLiveData<List<Value>>(listOf())
 
@@ -23,31 +25,48 @@ class ValueListViewModel(
 
     // Поисковый запрос пользователей
     private val query = MutableLiveData<String>()
+    // Код исключаемого значения
+    private val codeFilter = MutableLiveData<String?>()
 
     /**
-     * Получить список валют соответствующих поисковому запросу query
-     * @return список валют удовлетворяющих запрос query
+     * Получить список валют соответствующих поисковому запросу query и исключающий codeFilter
+     * @return  список валют удовлетворяющих запрос query и codeFilter
      */
     fun getCountriesByQuery(): LiveData<List<Value>> {
         val result = MediatorLiveData<List<Value>>()
 
-        // Функция в соответствии с запросом query
+        // Функция в соответствии с запросом query и codeFilter
         val filterFun = {
             val queryStr = query.value
+            val codeFilter = codeFilter.value
             val currency = valueList.value
 
-            result.value = if (queryStr.isNullOrEmpty()) currency
-            else currency!!.filter {
-                (it.name + it.code).contains(queryStr, true)
+            result.value = if (queryStr.isNullOrEmpty() && codeFilter.isNullOrEmpty()) {
+                currency
+            } else {
+                currency!!.filter { value ->
+                    val isQuery = if (queryStr != null) {
+                        (value.name + value.code).contains(queryStr, true)
+                    } else {
+                        true
+                    }
+                    isQuery && value.code != codeFilter
+                }
             }
         }
         // Объединение LiveData в MediatorLiveData
         result.addSource(valueList) { filterFun.invoke() }
         result.addSource(query) { filterFun.invoke() }
+        result.addSource(codeFilter) { filterFun.invoke() }
 
         return result
     }
 
+    /**
+     * Установить фильтрующий запрос
+     * @param query текст запроса
+     */
+    @MainThread
     fun setSearchQuery(query: String) {
         this.query.value = query
     }
@@ -83,5 +102,14 @@ class ValueListViewModel(
                 _isLoading.postValue(false)
             }
         }
+    }
+
+    /**
+     * Установить значение фильтра
+     * @param codeFilter    значение фильтра
+     */
+    @MainThread
+    fun setFilter(codeFilter: String?) {
+        this.codeFilter.value = codeFilter
     }
 }

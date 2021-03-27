@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import dagger.Lazy
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrValueListBinding
 import ro.mertsalovda.converter.di.ConverterComponent
@@ -24,11 +25,13 @@ import javax.inject.Inject
 class ValueListFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ConverterViewModelFactory
+    lateinit var viewModelFactory: Lazy<ConverterViewModelFactory>
 
     private var onCurrencySelected: ((Value) -> Unit)? = null
 
     private lateinit var mode: Mode
+
+    private var codeFilter: String? = null
 
     private lateinit var binding: FrValueListBinding
 
@@ -58,7 +61,8 @@ class ValueListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ValueListViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this, viewModelFactory.get()).get(ValueListViewModel::class.java)
 
         adapter = ValueAdapter { currencyItem ->
             onCurrencySelected?.let {
@@ -76,10 +80,16 @@ class ValueListFragment : Fragment() {
         setToolbar()
         setObservers()
         setListeners()
-        if (mode == Mode.CURRENCY)
+        viewModel.setFilter(codeFilter)
+        loadValue()
+    }
+
+    private fun loadValue() {
+        if (mode == Mode.CURRENCY) {
             viewModel.loadCurrencyList()
-        else
+        } else {
             viewModel.loadPhysicalValueList(mode)
+        }
     }
 
     private fun setToolbar() {
@@ -105,36 +115,35 @@ class ValueListFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(editable: Editable?) {
-                editable?.let {
-                    viewModel.setSearchQuery(it.toString())
+                editable?.let { text ->
+                    viewModel.setSearchQuery(text.toString())
                 }
             }
-
         })
 
         binding.refresher.setOnRefreshListener {
-            viewModel.loadCurrencyList()
+            loadValue()
         }
     }
 
     private fun setObservers() {
-        viewModel.getCountriesByQuery().observe(viewLifecycleOwner) {
-            adapter.setData(it)
+        viewModel.getCountriesByQuery().observe(viewLifecycleOwner) { valueList ->
+            adapter.setData(valueList)
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.refresher.isRefreshing = it
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.refresher.isRefreshing = isLoading
         }
 
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            it?.let {
-                Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let { error ->
+                Snackbar.make(requireView(), error, Snackbar.LENGTH_LONG).show()
             }
         }
     }
 
     private fun setOnBackPressedHolder(view: View) {
-        view.isFocusableInTouchMode = true;
+        view.isFocusableInTouchMode = true
         view.requestFocus()
         view.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
@@ -153,15 +162,24 @@ class ValueListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mode: Mode, onCurrencySelected: ((Value) -> Unit)?): ValueListFragment {
+        fun newInstance(
+            mode: Mode,
+            codeFilter: String?,
+            onCurrencySelected: ((Value) -> Unit)?
+        ): ValueListFragment {
             val fragment = ValueListFragment()
-            fragment.setCurrencySelectedListener(mode, onCurrencySelected)
+            fragment.setCurrencySelectedListener(mode, codeFilter, onCurrencySelected)
             return fragment
         }
     }
 
-    fun setCurrencySelectedListener(mode: Mode, onCurrencySelected: ((Value) -> Unit)?) {
+    fun setCurrencySelectedListener(
+        mode: Mode,
+        codeFilter: String?,
+        onCurrencySelected: ((Value) -> Unit)?
+    ) {
         this.mode = mode
+        this.codeFilter = codeFilter
         this.onCurrencySelected = onCurrencySelected
     }
 

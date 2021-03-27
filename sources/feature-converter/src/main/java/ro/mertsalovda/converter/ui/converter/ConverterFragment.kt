@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import dagger.Lazy
 import ro.mertsalovda.converter.ConverterFlowFragment
 import ro.mertsalovda.converter.R
 import ro.mertsalovda.converter.databinding.FrConverterBinding
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class ConverterFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ConverterViewModelFactory
+    lateinit var viewModelFactory: Lazy<ConverterViewModelFactory>
 
     companion object {
         @JvmStatic
@@ -61,7 +62,7 @@ class ConverterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ConverterViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory.get()).get(ConverterViewModel::class.java)
 
         disableSoftKeypad()
         initKeypadMap()

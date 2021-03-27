@@ -16,16 +16,17 @@ class ViewRouterImpl @Inject constructor() : ViewRouter {
             .commit()
     }
 
-    override fun showCurrencyList(
+    override fun showValueList(
         @IdRes containerId: Int,
         mode: Mode,
         childFragmentManager: FragmentManager,
+        codeFilter: String?,
         onValueSelected: ((Value) -> Unit)?
     ) {
         childFragmentManager.beginTransaction()
             .add(
                 containerId,
-                ValueListFragment.newInstance(mode, onValueSelected),
+                ValueListFragment.newInstance(mode,  codeFilter, onValueSelected),
                 ValueListFragment::class.simpleName
             )
             .addToBackStack(ValueListFragment::class.simpleName)

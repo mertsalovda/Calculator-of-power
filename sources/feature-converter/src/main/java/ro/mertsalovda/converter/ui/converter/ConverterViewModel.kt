@@ -12,9 +12,16 @@ import ro.mertsalovda.converter.repository.CurrencyConverterRepository
 import ro.mertsalovda.converter.repository.PhysicalValueRepository
 import ru.mertsalovda.core_api.database.entity.ExchangeRate
 import ru.mertsalovda.core_api.database.entity.Value
+import javax.inject.Inject
 import kotlin.math.round
 
-class ConverterViewModel(
+/**
+ * ViewModel экрана конвертора.
+ * @property viewRouter                     класс навигации.
+ * @property currencyConverterRepository    репозиторий валют.
+ * @property physicalValueRepository        репозиторий физических величин.
+ */
+class ConverterViewModel @Inject constructor(
     private val viewRouter: ViewRouter,
     private val currencyConverterRepository: CurrencyConverterRepository,
     private val physicalValueRepository: PhysicalValueRepository,
@@ -55,13 +62,24 @@ class ConverterViewModel(
 
     /** Показать экран выбора валюты */
     fun showCurrencyList(@IdRes containerId: Int, childFragmentManager: FragmentManager) {
-        viewRouter.showCurrencyList(containerId, mode, childFragmentManager) {
+        val codeFilter = getCodeFilter()
+        viewRouter.showValueList(containerId, mode, childFragmentManager, codeFilter) {
             when (selectedValue) {
                 ConverterValue.CONVERTED_VALUE -> _unitPreview1.value = it
                 ConverterValue.RESULT_VALUE -> _unitPreview2.value = it
             }
         }
     }
+
+    /**
+     * Получить значение фильтра по коду.
+     * @return  код противоположной единицы измерения.
+     */
+    private fun getCodeFilter(): String? =
+        when (selectedValue) {
+            ConverterValue.CONVERTED_VALUE -> _unitPreview2.value?.code
+            ConverterValue.RESULT_VALUE -> _unitPreview1.value?.code
+        }
 
     /** Обработать нажатие на клавиатуру */
     fun clickKeypad(symbol: String) {
