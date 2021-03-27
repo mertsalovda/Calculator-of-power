@@ -23,6 +23,9 @@ class ValueListViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String?>(null)
     val errorMessage: LiveData<String?> = _errorMessage
 
+    /** Режим конвертора */
+    private val _mode = MutableLiveData<Mode?>(null)
+
     // Поисковый запрос пользователей
     private val query = MutableLiveData<String>()
     // Код исключаемого значения
@@ -71,8 +74,17 @@ class ValueListViewModel @Inject constructor(
         this.query.value = query
     }
 
+    /** Загрузить список значений */
+    fun loadValueList() {
+        if (_mode.value == Mode.CURRENCY) {
+            loadCurrencyList()
+        } else {
+            _mode.value?.let { loadPhysicalValueList(it) }
+        }
+    }
+
     /** Загрузить список валюты */
-    fun loadCurrencyList() {
+    private fun loadCurrencyList() {
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
@@ -90,7 +102,7 @@ class ValueListViewModel @Inject constructor(
      * Загрузить список физических величин
      * @param mode  режим конвертора [Mode]
      */
-    fun loadPhysicalValueList(mode: Mode) {
+    private fun loadPhysicalValueList(mode: Mode) {
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
@@ -105,11 +117,20 @@ class ValueListViewModel @Inject constructor(
     }
 
     /**
-     * Установить значение фильтра
-     * @param codeFilter    значение фильтра
+     * Установить значение фильтра.
+     * @param codeFilter    значение фильтра.
      */
     @MainThread
     fun setFilter(codeFilter: String?) {
         this.codeFilter.value = codeFilter
+    }
+
+    /**
+     * Установить режим конвертора.
+     * @param mode  режим конвертора.
+     */
+    @MainThread
+    fun setMode(mode: Mode?) {
+        this._mode.value = mode
     }
 }

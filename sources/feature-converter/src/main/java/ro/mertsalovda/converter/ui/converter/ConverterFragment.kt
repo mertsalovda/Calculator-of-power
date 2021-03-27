@@ -62,7 +62,8 @@ class ConverterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel = ViewModelProvider(this, viewModelFactory.get()).get(ConverterViewModel::class.java)
+        val viewModelStore = this.requireActivity().viewModelStore
+        viewModel = ViewModelProvider(viewModelStore, viewModelFactory.get()).get(ConverterViewModel::class.java)
 
         disableSoftKeypad()
         initKeypadMap()

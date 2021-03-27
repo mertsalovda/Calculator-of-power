@@ -29,7 +29,7 @@ class ValueListFragment : Fragment() {
 
     private var onCurrencySelected: ((Value) -> Unit)? = null
 
-    private lateinit var mode: Mode
+    private var mode: Mode? = null
 
     private var codeFilter: String? = null
 
@@ -61,8 +61,9 @@ class ValueListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val viewModelStore = this.requireActivity().viewModelStore
         viewModel =
-            ViewModelProvider(this, viewModelFactory.get()).get(ValueListViewModel::class.java)
+            ViewModelProvider(viewModelStore, viewModelFactory.get()).get(ValueListViewModel::class.java)
 
         adapter = ValueAdapter { currencyItem ->
             onCurrencySelected?.let {
@@ -80,18 +81,12 @@ class ValueListFragment : Fragment() {
         setToolbar()
         setObservers()
         setListeners()
-        viewModel.setFilter(codeFilter)
-        loadValue()
-    }
-
-    private fun loadValue() {
-        if (mode == Mode.CURRENCY) {
-            viewModel.loadCurrencyList()
-        } else {
-            viewModel.loadPhysicalValueList(mode)
+        if (savedInstanceState == null) {
+            viewModel.setFilter(codeFilter)
+            viewModel.setMode(mode)
         }
+        viewModel.loadValueList()
     }
-
     private fun setToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val toolbar = (requireActivity() as AppCompatActivity).supportActionBar
@@ -122,7 +117,7 @@ class ValueListFragment : Fragment() {
         })
 
         binding.refresher.setOnRefreshListener {
-            loadValue()
+            viewModel.loadValueList()
         }
     }
 

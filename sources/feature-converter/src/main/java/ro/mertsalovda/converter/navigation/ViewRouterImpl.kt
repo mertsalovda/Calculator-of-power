@@ -12,7 +12,7 @@ class ViewRouterImpl @Inject constructor() : ViewRouter {
 
     override fun showConverter(containerId: Int, childFragmentManager: FragmentManager) {
         childFragmentManager.beginTransaction()
-            .add(containerId, ConverterFragment.newInstance(), ConverterFragment::class.simpleName)
+            .replace(containerId, ConverterFragment.newInstance(), ConverterFragment::class.simpleName)
             .commit()
     }
 
@@ -24,7 +24,7 @@ class ViewRouterImpl @Inject constructor() : ViewRouter {
         onValueSelected: ((Value) -> Unit)?
     ) {
         childFragmentManager.beginTransaction()
-            .add(
+            .replace(
                 containerId,
                 ValueListFragment.newInstance(mode,  codeFilter, onValueSelected),
                 ValueListFragment::class.simpleName
