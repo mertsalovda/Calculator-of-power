@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ro.mertsalovda.converter.di.ConverterComponent
-import ro.mertsalovda.converter.navigation.ViewRouter
+import ro.mertsalovda.converter.navigation.IViewRouter
 import ru.mertsalovda.core_api.providers.AppProvider
 import ru.mertsalovda.core_api.providers.AppWithFacade
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ConverterFlowFragment : Fragment() {
 
     @Inject
-    lateinit var viewRouter: ViewRouter
+    lateinit var viewRouter: IViewRouter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

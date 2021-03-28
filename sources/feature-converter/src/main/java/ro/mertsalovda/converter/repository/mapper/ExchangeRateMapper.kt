@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Entity - [ExchangeRate]
  * Model - [ExchangeRateDto]
  */
-class ExchangeRateMapper @Inject constructor() : BaseMapper<ExchangeRate, ExchangeRateDto>() {
+open class ExchangeRateMapper @Inject constructor() : BaseMapper<ExchangeRate, ExchangeRateDto>() {
 
     override fun reverseMap(model: ExchangeRateDto?): ExchangeRate? =
         model?.let {

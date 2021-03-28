@@ -11,11 +11,12 @@ import kotlin.coroutines.CoroutineContext
 
 /**
  * Репозиторий для получения списка физических величин.
+ * @param converterApi  API для получения конвертируемой величины.
  */
 @Singleton
 class PhysicalValueRepository @Inject constructor(
     private val converterApi: ConverterApi,
-) : CoroutineScope {
+) : IPhysicalValueRepository, CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -70,7 +71,7 @@ class PhysicalValueRepository @Inject constructor(
      * @param mode  режим конвертора
      * @return      список физических величин [Value]
      */
-    fun getPhysicalValueByMode(mode: Mode): List<Value>? = map[mode]
+    override fun getPhysicalValueByMode(mode: Mode): List<Value>? = map[mode]
 
     /**
      * Конвертировать физическую величину
@@ -79,7 +80,7 @@ class PhysicalValueRepository @Inject constructor(
      * @param toUnit    единица измерения результата конвертирования
      * @return          результат конвертации, если запрос выполнился успешно или null
      */
-    suspend fun convert(fromValue: Float, fromUnit: String, toUnit: String): Float? =
+    override suspend fun convert(fromValue: Float, fromUnit: String, toUnit: String): Float? =
         withContext(coroutineContext) {
             val result = converterApi.convert(fromValue, fromUnit, toUnit)
             if (result.isSuccessful) {

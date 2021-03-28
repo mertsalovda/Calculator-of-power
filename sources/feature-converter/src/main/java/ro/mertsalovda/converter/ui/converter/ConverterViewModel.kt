@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ro.mertsalovda.converter.navigation.ViewRouter
-import ro.mertsalovda.converter.repository.CurrencyConverterRepository
-import ro.mertsalovda.converter.repository.PhysicalValueRepository
+import ro.mertsalovda.converter.navigation.IViewRouter
+import ro.mertsalovda.converter.repository.ICurrencyConverterRepository
+import ro.mertsalovda.converter.repository.IPhysicalValueRepository
 import ru.mertsalovda.core_api.database.entity.ExchangeRate
 import ru.mertsalovda.core_api.database.entity.Value
 import javax.inject.Inject
@@ -22,9 +22,9 @@ import kotlin.math.round
  * @property physicalValueRepository        репозиторий физических величин.
  */
 class ConverterViewModel @Inject constructor(
-    private val viewRouter: ViewRouter,
-    private val currencyConverterRepository: CurrencyConverterRepository,
-    private val physicalValueRepository: PhysicalValueRepository,
+    private val viewRouter: IViewRouter,
+    private val currencyConverterRepository: ICurrencyConverterRepository,
+    private val physicalValueRepository: IPhysicalValueRepository,
 ) : ViewModel() {
 
     /** Режим конвертора. По умолчанию обмен валют */
@@ -60,8 +60,8 @@ class ConverterViewModel @Inject constructor(
         this.selectedValue = converterValue
     }
 
-    /** Показать экран выбора валюты */
-    fun showCurrencyList(@IdRes containerId: Int, childFragmentManager: FragmentManager) {
+    /** Показать экран выбора валюты или физической величины */
+    fun showValueList(@IdRes containerId: Int, childFragmentManager: FragmentManager) {
         val codeFilter = getCodeFilter()
         viewRouter.showValueList(containerId, mode, childFragmentManager, codeFilter) {
             when (selectedValue) {
@@ -122,8 +122,16 @@ class ConverterViewModel @Inject constructor(
             ConverterValue.RESULT_VALUE -> _unit2
         }
 
+    /** Загрузить коэффициент преобразования */
+    fun loadCoefficient() {
+        when (mode) {
+            Mode.CURRENCY -> loadExchangeRateForBaseCurrency()
+            else -> loadConversionFactor()
+        }
+    }
+
     /** Загрузить обменный курс валют */
-    fun loadExchangeRateForBaseCurrency() {
+    private fun loadExchangeRateForBaseCurrency() {
         viewModelScope.launch {
             _unitPreview1.value?.code?.let { code ->
                 try {
@@ -137,8 +145,8 @@ class ConverterViewModel @Inject constructor(
         }
     }
 
-    /** Загрузить коэффициент преобразования */
-    fun loadConversionFactor() {
+    /** Загрузить коэффициент преобразования физической величины*/
+    private fun loadConversionFactor() {
         viewModelScope.launch {
             val fromValue = 1f
             val fromUnit = unitPreview1.value?.unit ?: return@launch

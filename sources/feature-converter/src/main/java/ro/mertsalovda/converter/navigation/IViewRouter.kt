@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import ro.mertsalovda.converter.ui.converter.Mode
 import ru.mertsalovda.core_api.database.entity.Value
 
-interface ViewRouter {
+interface IViewRouter {
 
     /** Открыть экран Конвертор */
     fun showConverter(@IdRes containerId: Int, childFragmentManager: FragmentManager)

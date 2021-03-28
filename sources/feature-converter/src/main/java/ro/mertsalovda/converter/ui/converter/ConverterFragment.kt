@@ -105,7 +105,7 @@ class ConverterFragment : Fragment() {
 
         val onCurrencyClickListener = { view: View ->
             getSelectedValue(view)?.let { viewModel.setValueFocused(it) }
-            viewModel.showCurrencyList(ConverterFlowFragment.CONTAINER_ID, parentFragmentManager)
+            viewModel.showValueList(ConverterFlowFragment.CONTAINER_ID, parentFragmentManager)
         }
         binding.unitContainer1.setOnClickListener(onCurrencyClickListener)
         binding.unitContainer2.setOnClickListener(onCurrencyClickListener)
@@ -158,7 +158,6 @@ class ConverterFragment : Fragment() {
             ConverterValue.CONVERTED_VALUE -> {
                 setImage(binding.iconUnit1, null)
                 binding.titleUnit1.text = "NONE"
-                viewModel.loadExchangeRateForBaseCurrency()
             }
             ConverterValue.RESULT_VALUE -> {
                 setImage(binding.iconUnit2, null)
@@ -177,18 +176,13 @@ class ConverterFragment : Fragment() {
             ConverterValue.CONVERTED_VALUE -> {
                 setImage(binding.iconUnit1, valueItem)
                 binding.titleUnit1.text = valueItem.code
-                if (valueItem is Value.Currency) {
-                    viewModel.loadExchangeRateForBaseCurrency()
-                }
             }
             ConverterValue.RESULT_VALUE -> {
                 setImage(binding.iconUnit2, valueItem)
                 binding.titleUnit2.text = valueItem.code
             }
         }
-        if (valueItem !is Value.Currency) {
-            viewModel.loadConversionFactor()
-        }
+        viewModel.loadCoefficient()
     }
 
     /** Получить [ConverterValue] к которому относится view */

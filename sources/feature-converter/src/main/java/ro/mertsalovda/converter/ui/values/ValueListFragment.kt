@@ -61,9 +61,8 @@ class ValueListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val viewModelStore = this.requireActivity().viewModelStore
         viewModel =
-            ViewModelProvider(viewModelStore, viewModelFactory.get()).get(ValueListViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory.get()).get(ValueListViewModel::class.java)
 
         adapter = ValueAdapter { currencyItem ->
             onCurrencySelected?.let {

@@ -25,16 +25,13 @@ class CurrencyConverterRepository @Inject constructor(
     private val exchangeRatesApi: ExchangeRatesApi,
     private val exchangeRateDao: ExchangeRateDao,
     private val exchangeRateMapper: ExchangeRateMapper
-) : CoroutineScope {
+) : ICurrencyConverterRepository, CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-
-
-    /** Загрузить обменный курс валют */
-    suspend fun getExchangeRateByBaseCurrency(base: String): ExchangeRate? =
+    override suspend fun getExchangeRateByBaseCurrency(base: String): ExchangeRate? =
         withContext(coroutineContext) {
             val exchangeRate = exchangeRateDao.getExchangeRateByBaseCurrency(base)
             return@withContext if (isValid(exchangeRate)) {

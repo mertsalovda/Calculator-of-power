@@ -44,6 +44,9 @@ dependencies {
     implementation lifecycleViewModelKtx
 
     testImplementation "junit:junit:$junitVersion"
+    testImplementation androidTest['mockito-kotlin']
+    testImplementation androidTest['mockito-kotlin2']
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
     androidTestImplementation androidTest['junit']
     androidTestImplementation androidTest['runner']
     androidTestImplementation androidTest['espresso-core']

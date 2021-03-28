@@ -8,7 +8,7 @@ import ro.mertsalovda.converter.ui.values.ValueListFragment
 import ru.mertsalovda.core_api.database.entity.Value
 import javax.inject.Inject
 
-class ViewRouterImpl @Inject constructor() : ViewRouter {
+class ViewRouterImpl @Inject constructor() : IViewRouter {
 
     override fun showConverter(containerId: Int, childFragmentManager: FragmentManager) {
         childFragmentManager.beginTransaction()
